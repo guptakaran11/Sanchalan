@@ -1,4 +1,4 @@
-// ignore: file_names
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
@@ -17,6 +17,21 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
     ['assets/images/suggestions/rentals.png', 'Rentals'],
     ['assets/images/suggestions/reserve.png', 'Reserve'],
     ['assets/images/suggestions/intercity.png', 'InterCity'],
+  ];
+
+  List moreWaysToSanchalan = [
+    ['assets/images/moreWaysSanchalan/sendAPackage.png',
+    'Send a package',
+    'On-demand delivery across town',
+    ],
+     ['assets/images/moreWaysSanchalan/premierTrips.png',
+    'Premier Trips',
+    'Top-rated drivers,newer cars',
+    ],
+     ['assets/images/moreWaysSanchalan/safetyToolKit.png',
+    'Safety Toolkit',
+    'On-trip help with safety issues',
+    ],
   ];
 
   @override
@@ -116,57 +131,82 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
           ),
 
           // suggestions
+          SizedBox(height: 4.h),
+          Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Suggestions',
+                    style: AppTextStyles.body14Bold,
+                  ),
+                  Text(
+                    'See all',
+                    style: AppTextStyles.small10.copyWith(color: black87),
+                  ),
+                ],
+              ),
+              SizedBox(height: 1.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: suggestions
+                    .map((e) => SizedBox(
+                          width: 20.w,
+                          height: 20.w,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 15.w,
+                                width: 20.w,
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.sp),
+                                  color: greyShadeButton,
+                                ),
+                                child: Image(
+                                  image: AssetImage(
+                                    e[0],
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                e[1],
+                                style: AppTextStyles.small10Bold
+                                    .copyWith(color: black87),
+                              ),
+                            ],
+                          ),
+                        ))
+                    .toList(),
+              )
+            ],
+          ),
+          // Banner
+          SizedBox(
+            height: 2.h,
+          ),
+          const Image(
+            image: AssetImage('assets/images/promotion/promo.png'),
+          ),
           SizedBox(
             height: 4.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Column(
             children: [
               Text(
-                'Suggestions',
+                'More ways to use Sanchalan',
                 style: AppTextStyles.body14Bold,
               ),
-              Text(
-                'See all',
-                style: AppTextStyles.small10.copyWith(color: black87),
+              SizedBox(
+                height: 1.h,
+              ),
+              SizedBox(
+                height: 20.h,
+                child: ListView.builder(shrinkWrap: true,itemCount: ,itemBuilder: (context,index){}),
               ),
             ],
-          ),
-          SizedBox(
-            height: 1.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: suggestions
-                .map((e) => SizedBox(
-                      width: 20.w,
-                      height: 20.w,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            height: 15.w,
-                            width: 20.w,
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.sp),
-                              color: greyShadeButton,
-                            ),
-                            child: Image(
-                              image: AssetImage(
-                                e[0],
-                              ),
-                            ),
-                          ),
-                          Text(
-                            e[1],
-                            style: AppTextStyles.small10Bold
-                                .copyWith(color: black87),
-                          ),
-                        ],
-                      ),
-                    ))
-                .toList(),
           )
         ],
       ),
