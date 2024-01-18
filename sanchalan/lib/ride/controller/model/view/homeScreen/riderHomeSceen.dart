@@ -160,8 +160,8 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
                           ),
                           Text(
                             e[1],
-                            style:
-                                AppTextStyles.small10Bold.copyWith(color: black87),
+                            style: AppTextStyles.small10Bold
+                                .copyWith(color: black87),
                           ),
                         ],
                       ),
