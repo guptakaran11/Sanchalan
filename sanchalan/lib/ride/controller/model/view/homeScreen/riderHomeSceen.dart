@@ -20,17 +20,46 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
   ];
 
   List moreWaysToSanchalan = [
-    ['assets/images/moreWaysSanchalan/sendAPackage.png',
-    'Send a package',
-    'On-demand delivery across town',
+    [
+      'assets/images/moreWaysSanchalan/sendAPackage.png',
+      'Send a package',
+      'On-demand delivery across town',
     ],
-     ['assets/images/moreWaysSanchalan/premierTrips.png',
-    'Premier Trips',
-    'Top-rated drivers,newer cars',
+    [
+      'assets/images/moreWaysSanchalan/premierTrips.png',
+      'Premier Trips',
+      'Top-rated drivers,newer cars',
     ],
-     ['assets/images/moreWaysSanchalan/safetyToolKit.png',
-    'Safety Toolkit',
-    'On-trip help with safety issues',
+    [
+      'assets/images/moreWaysSanchalan/safetyToolKit.png',
+      'Safety Toolkit',
+      'On-trip help with safety issues',
+    ],
+  ];
+
+  List planYourNextTrip = [
+    [
+      'assets/images/planNextTrip/travelIntercity.png',
+      'Travel intercity',
+      'Get to remote location with ease',
+    ],
+    [
+      'assets/images/planNextTrip/rentals.png',
+      'Rentals',
+      'Travel from 1 to 12 hours',
+    ],
+  ];
+
+  List saveEveryDay = [
+    [
+      'assets/images/saveEveryDay/MotoTrips.png',
+      'Moto trips',
+      'Affordable Motercycle pick-ups',
+    ],
+    [
+      'assets/images/saveEveryDay/tryAGroupTrip.png',
+      'Try a group trip',
+      'Seamless trips, together',
     ],
   ];
 
@@ -72,7 +101,7 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
                   ),
                   Text(
                     'where to ?',
-                    style: AppTextStyles.body14Bold,
+                    style: AppTextStyles.body14Bold.copyWith(fontSize: 6.w),
                   )
                 ],
               ),
@@ -193,23 +222,120 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
           SizedBox(
             height: 4.h,
           ),
-          Column(
-            children: [
-              Text(
-                'More ways to use Sanchalan',
-                style: AppTextStyles.body14Bold,
-              ),
-              SizedBox(
-                height: 1.h,
-              ),
-              SizedBox(
-                height: 20.h,
-                child: ListView.builder(shrinkWrap: true,itemCount: ,itemBuilder: (context,index){}),
-              ),
-            ],
-          )
+          ExploreFeaturesHorizontalListView(
+            title: 'More ways to use Sanchalan',
+            list: moreWaysToSanchalan,
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
+          ExploreFeaturesHorizontalListView(
+            title: 'Plan your next trip',
+            list: planYourNextTrip,
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
+          ExploreFeaturesHorizontalListView(
+            title: 'Save Every Day',
+            list: saveEveryDay,
+          ),
+          SizedBox(
+            height: 4.h,
+          ),
         ],
       ),
+    );
+  }
+}
+
+class ExploreFeaturesHorizontalListView extends StatelessWidget {
+  const ExploreFeaturesHorizontalListView({
+    super.key,
+    required this.list,
+    required this.title,
+  });
+
+  final List list;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: AppTextStyles.body14Bold,
+        ),
+        SizedBox(
+          height: 1.h,
+        ),
+        SizedBox(
+          height: 20.h,
+          child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.only(
+                    left: index == 0 ? 0 : 1.5.w,
+                    right: index == (list.length - 1) ? 0 : 1.5.w,
+                  ),
+                  height: 18.h,
+                  width: 65.w,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 14.h,
+                        width: 65.w,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            8.sp,
+                          ),
+                          image: DecorationImage(
+                            image: AssetImage(
+                              list[index][0],
+                            ),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      Row(
+                        children: [
+                          Text(
+                            list[index][1],
+                            style: AppTextStyles.small12Bold,
+                          ),
+                          SizedBox(
+                            width: 3.w,
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            size: 2.h,
+                            color: black87,
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 0.2.h,
+                      ),
+                      Text(
+                        list[index][2],
+                        style: AppTextStyles.small10.copyWith(
+                          color: black87,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+        ),
+      ],
     );
   }
 }
