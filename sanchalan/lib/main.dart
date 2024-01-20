@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
+import 'package:sanchalan/ride/controller/model/view/activity/activityScreen.dart';
 import 'package:sanchalan/ride/controller/model/view/homeScreen/riderHomeSceen.dart';
+import 'package:sanchalan/ride/controller/model/view/serviceScreen/serviceScreen.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -27,7 +29,7 @@ class _SanchalanState extends State<Sanchalan> {
               elevation: 0,
             ),
           ),
-          home: const RiderHomeScreen(),
+          home: const ActivityScreenRider(),
         );
       },
     );
