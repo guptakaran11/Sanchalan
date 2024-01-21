@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
-import 'package:sanchalan/ride/controller/model/view/activity/activityScreen.dart';
-import 'package:sanchalan/ride/controller/model/view/homeScreen/riderHomeSceen.dart';
-import 'package:sanchalan/ride/controller/model/view/serviceScreen/serviceScreen.dart';
+import 'package:sanchalan/ride/controller/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
+import 'package:sanchalan/ride/controller/model/view/bottomNavBar/bottomNavBarRider.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -21,15 +21,21 @@ class _SanchalanState extends State<Sanchalan> {
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, _, __) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            appBarTheme: AppBarTheme(
-              color: white,
-              elevation: 0,
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider<BottomNavBarRiderProvider>(
+                create: (_) => BottomNavBarRiderProvider()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              appBarTheme: AppBarTheme(
+                color: white,
+                elevation: 0,
+              ),
             ),
+            home: const BottomNavBarRider(),
           ),
-          home: const ActivityScreenRider(),
         );
       },
     );

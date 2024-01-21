@@ -67,6 +67,11 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const CircleAvatar(
+          backgroundImage: AssetImage(
+            'assets/images/SanchalanLogo/sanchalanLogo.jpg',
+          ),
+        ),
         title: Text(
           'Sanchalan',
           style: AppTextStyles.heading20Bold,
