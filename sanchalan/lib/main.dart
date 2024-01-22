@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/ride/controller/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
-import 'package:sanchalan/ride/controller/model/view/bottomNavBar/bottomNavBarRider.dart';
+import 'package:sanchalan/ride/View/bottomNavBar/bottomNavBarRider.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -34,7 +35,7 @@ class _SanchalanState extends State<Sanchalan> {
                 elevation: 0,
               ),
             ),
-            home: const BottomNavBarRider(),
+            home: const LoginScreen(),
           ),
         );
       },
