@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class PhoneAuthPovider extends ChangeNotifier {
+class MobileAuthProvider extends ChangeNotifier {
   String? phoneNumber;
   String? verificationCode;
 

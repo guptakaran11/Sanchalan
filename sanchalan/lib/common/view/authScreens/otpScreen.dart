@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
-import 'package:sanchalan/common/Widgets/elevatedButtonCommon.dart';
-import 'package:sanchalan/common/controller/authProvider.dart';
+import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
+import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
+import 'package:sanchalan/common/controller/provider/authProvider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sizer/sizer.dart';
@@ -108,7 +109,7 @@ class _OTPScreenState extends State<OTPScreen> {
               height: 2.h,
             ),
             Text(
-              'Enter the 6-digit code sent to you at ${context.read<PhoneAuthPovider>().phoneNumber}',
+              'Enter the 6-digit code sent to you at ${context.read<MobileAuthProvider>().phoneNumber}',
               style: AppTextStyles.small10,
             ),
             SizedBox(
@@ -137,7 +138,10 @@ class _OTPScreenState extends State<OTPScreen> {
               enableActiveFill: true,
               errorAnimationController: errorController,
               controller: otpController,
-              onCompleted: (value) {},
+              onCompleted: (value) {
+                MobileAuthServices.verifyOTP(
+                    context: context, otp: otpController.text.trim());
+              },
               onChanged: (value) {},
               beforeTextPaste: (text) {
                 return true;

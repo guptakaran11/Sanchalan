@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:sanchalan/common/Widgets/elevatedButtonCommon.dart';
+import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sizer/sizer.dart';

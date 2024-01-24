@@ -1,15 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sanchalan/common/controller/authProvider.dart';
+import 'package:sanchalan/common/controller/provider/authProvider.dart';
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
-import 'package:sanchalan/common/view/authScreens/otpScreen.dart';
 import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
+import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
+import 'package:sanchalan/firebase_options.dart';
 import 'package:sanchalan/ride/controller/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
-import 'package:sanchalan/ride/View/bottomNavBar/bottomNavBarRider.dart';
 import 'package:sizer/sizer.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const Sanchalan());
 }
 
@@ -29,8 +34,8 @@ class _SanchalanState extends State<Sanchalan> {
           providers: [
             ChangeNotifierProvider<BottomNavBarRiderProvider>(
                 create: (_) => BottomNavBarRiderProvider()),
-             ChangeNotifierProvider<PhoneAuthPovider>(
-                create: (_) => PhoneAuthPovider()),
+            ChangeNotifierProvider<MobileAuthProvider>(
+                create: (_) => MobileAuthProvider()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -40,7 +45,7 @@ class _SanchalanState extends State<Sanchalan> {
                 elevation: 0,
               ),
             ),
-            home: const RegistrationScreen(),
+            home: const LoginScreen(),
           ),
         );
       },

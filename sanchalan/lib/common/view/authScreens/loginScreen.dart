@@ -1,7 +1,10 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sanchalan/common/Widgets/assetGen.dart';
-import 'package:sanchalan/common/Widgets/elevatedButtonCommon.dart';
+import 'package:sanchalan/common/controller/provider/authProvider.dart';
+import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
+import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
 import 'package:sanchalan/common/Widgets/orDivider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
@@ -24,6 +27,21 @@ class _LoginScreenState extends State<LoginScreen> {
     [const AssetGen().facebook.svg(height: 3.h), 'Facebook'],
     [const AssetGen().mail.svg(height: 3.h), 'Email'],
   ];
+
+  login() {
+    if (phoneNumberController.text.isNotEmpty) {
+      setState(() {
+        loginButtonPressed = true;
+      });
+      context
+          .read<MobileAuthProvider>()
+          .updatePhoneNumber(phoneNumberController.text.trim());
+      MobileAuthServices.receiveOTP(
+          context: context,
+          phoneNumber:
+              '$selectedCountryode${phoneNumberController.text.trim()}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +128,9 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 2.h,
             ),
             ElevatedButtonCommon(
-              onPressed: () {},
+              onPressed: () {
+                login();
+              },
               backgroundColor: black,
               height: 6.h,
               width: 94.w,
