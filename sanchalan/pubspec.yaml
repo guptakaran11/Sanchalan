@@ -33,10 +33,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   # file_picker: ^6.1.1
   # firebase_auth: ^4.16.0
-  # firebase_core: ^2.24.2
   # firebase_database: ^10.4.0
   # firebase_messaging: ^14.7.10
   # firebase_storage: ^11.6.0
+  firebase_core: ^2.24.2
   flutter:
     sdk: flutter
   # flutter_geofire: ^2.0.3

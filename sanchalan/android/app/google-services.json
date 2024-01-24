@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "220558927008",
+    "project_id": "sanchalan-aeef9",
+    "storage_bucket": "sanchalan-aeef9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220558927008:android:12008435731c247a1d95c5",
+        "android_client_info": {
+          "package_name": "com.example.sanchalan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdTE527oIcl9rHDLZYqiUP5LXaomYa_ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

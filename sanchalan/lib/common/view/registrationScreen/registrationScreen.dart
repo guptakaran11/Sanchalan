@@ -37,10 +37,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   bool registerButtonPressed = false;
 
   @override
+  void initState() {
+    super.initState();
+    phoneController.text = '+911234567890';
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    vehicleBrandNameController.dispose();
+    vehicleModelNameController.dispose();
+    vechileRegistrationNumberController.dispose();
+    driverLicenseNumberController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: ListView(
+          physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(
             horizontal: 3.w,
             vertical: 2.h,
@@ -116,11 +134,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 2.h,
             ),
             selectUserType('Driver'),
-            SizedBox(
-              height: 4.h,
-            ),
+            SizedBox(height: 4.h),
             Builder(builder: (context) {
-              if (userType == 'driver') {
+              if (userType == 'Driver') {
                 return driver();
               } else {
                 return customer();
@@ -176,7 +192,109 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     return Column(
       children: [
         SizedBox(
-          height: 15.h,
+          height: 10.h,
+        ),
+        ElevatedButtonCommon(
+          onPressed: () {},
+          backgroundColor: black,
+          height: 6.h,
+          width: 94.w,
+          child: registerButtonPressed == true
+              ? CircularProgressIndicator(
+                  color: white,
+                )
+              : Text(
+                  'Continue',
+                  style: AppTextStyles.small12Bold.copyWith(color: white),
+                ),
+        ),
+      ],
+    );
+  }
+
+  driver() {
+    return Column(
+      children: [
+        RegistrationScreenTextField(
+          controller: vehicleBrandNameController,
+          hint: '',
+          title: 'Vehicle Brand Name',
+          keyBoardType: TextInputType.name,
+          readOnly: false,
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        RegistrationScreenTextField(
+          controller: vehicleModelNameController,
+          hint: '',
+          title: 'Vehicle Model ',
+          keyBoardType: TextInputType.name,
+          readOnly: false,
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Vechile Type',
+              style: AppTextStyles.body14Bold,
+            ),
+            SizedBox(
+              height: 1.h,
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 2.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.sp),
+                border: Border.all(color: grey),
+              ),
+              child: DropdownButton(
+                  isExpanded: true,
+                  value: selectedVehicleType,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  underline: const SizedBox(),
+                  items: vehicleTypes
+                      .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(
+                              e,
+                              style: AppTextStyles.small12,
+                            ),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      selectedVehicleType = value!;
+                    });
+                  }),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        RegistrationScreenTextField(
+          controller: vechileRegistrationNumberController,
+          hint: '',
+          title: 'Vehicle Registration No. ',
+          keyBoardType: TextInputType.name,
+          readOnly: false,
+        ),
+        SizedBox(
+          height: 2.h,
+        ),
+        RegistrationScreenTextField(
+          controller: driverLicenseNumberController,
+          hint: '',
+          title: 'Driving License No.  ',
+          keyBoardType: TextInputType.name,
+          readOnly: false,
+        ),
+        SizedBox(
+          height: 2.h,
         ),
         ElevatedButtonCommon(
             onPressed: () {},
@@ -193,10 +311,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ))
       ],
     );
-  }
-
-  driver() {
-    return Column();
   }
 }
 
