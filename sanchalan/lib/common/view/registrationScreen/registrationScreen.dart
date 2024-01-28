@@ -1,7 +1,14 @@
+// ignore_for_file: unused_local_variable, use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:sanchalan/common/controller/services/imageServices.dart';
+import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
+import 'package:sanchalan/common/controller/services/toastService.dart';
+import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
+import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sizer/sizer.dart';
@@ -39,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   void initState() {
     super.initState();
-    phoneController.text = '+911234567890';
+    phoneController.text = auth.currentUser!.phoneNumber!;
   }
 
   @override
@@ -51,6 +58,132 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     vehicleModelNameController.dispose();
     vechileRegistrationNumberController.dispose();
     driverLicenseNumberController.dispose();
+  }
+
+  registerDriver() async {
+    if (profilePic == null) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Select Profile Pic',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (nameController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Your Name',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (phoneController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Your Phone Number',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (emailController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Your Email',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (vehicleBrandNameController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter the Vehicle Brand Name',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (vehicleModelNameController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter the Vehicle Model Name',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (selectedVehicleType == 'Select Vehicle Type') {
+      ToastService.sendScaffoldAlert(
+        msg: 'Select a Vehicle Type',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (vechileRegistrationNumberController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Vehicle Registration Number',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (driverLicenseNumberController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Your Driving License Number',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else {
+      String profilePicURL = await ImageServices.uploadImageToFirebaseStorage(
+        image: File(profilePic!.path),
+        context: context,
+      );
+      ProfileDataModel profileData = ProfileDataModel(
+        profilePicUrl: profilePicURL,
+        name: nameController.text.trim(),
+        mobileNumber: auth.currentUser!.phoneNumber!,
+        email: emailController.text.trim(),
+        userType: 'Driver',
+        vehicleBrandName: vehicleBrandNameController.text.trim(),
+        vehicleModel: vehicleModelNameController.text.trim(),
+        vehicleType: selectedVehicleType,
+        vehicleRegistrationNumber:
+            vechileRegistrationNumberController.text.trim(),
+        drivingLicenseNumber: driverLicenseNumberController.text.trim(),
+        registeredDateTime: DateTime.now(),
+      );
+      await ProfileDataCRUDServices.registerUserToDatabase(
+        profileData: profileData,
+        context: context,
+      );
+    }
+  }
+
+  registerCustomer() async {
+    if (profilePic == null) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Select Profile Pic',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (nameController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Your Name',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (phoneController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Your Phone Number',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else if (emailController.text.isEmpty) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Enter Your Email',
+        toastStatus: 'Warning',
+        context: context,
+      );
+    } else {
+      String profilePicURL = await ImageServices.uploadImageToFirebaseStorage(
+        image: File(profilePic!.path),
+        context: context,
+      );
+      ProfileDataModel profileData = ProfileDataModel(
+        profilePicUrl: profilePicURL,
+        name: nameController.text.trim(),
+        mobileNumber: auth.currentUser!.phoneNumber!,
+        email: emailController.text.trim(),
+        userType: 'Customer',
+        registeredDateTime: DateTime.now(),
+      );
+      await ProfileDataCRUDServices.registerUserToDatabase(
+        profileData: profileData,
+        context: context,
+      );
+    }
   }
 
   @override
@@ -68,7 +201,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 2.h,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                final image = await ImageServices.getImageFromGallery(
+                  context: context,
+                );
+                if (image != null) {
+                  setState(() {
+                    profilePic = File(image.path);
+                  });
+                }
+              },
               child: CircleAvatar(
                 radius: 8.h,
                 backgroundColor: greyShade3,
@@ -195,7 +337,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           height: 10.h,
         ),
         ElevatedButtonCommon(
-          onPressed: () {},
+          onPressed: () async {
+            setState(() {
+              registerButtonPressed == true;
+            });
+            await registerCustomer();
+          },
           backgroundColor: black,
           height: 6.h,
           width: 94.w,
@@ -297,7 +444,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           height: 2.h,
         ),
         ElevatedButtonCommon(
-            onPressed: () {},
+            onPressed: () async {
+              setState(() {
+                registerButtonPressed == true;
+              });
+              await registerDriver();
+            },
             backgroundColor: black,
             height: 6.h,
             width: 94.w,

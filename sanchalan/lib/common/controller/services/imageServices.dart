@@ -41,7 +41,7 @@ class ImageServices {
     Uuid uuid = const Uuid();
 
     String imageName = '$userID${uuid.v1().toString()}';
-    Reference ref = storage.ref().child('Product_Images').child(imageName);
+    Reference ref = storage.ref().child('Profile_Images').child(imageName);
     await ref.putFile(File(image.path));
     String imageURL = await ref.getDownloadURL();
     log('Uploaded Image To Firebase');

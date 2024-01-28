@@ -8,10 +8,13 @@ import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
+import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/common/view/authScreens/otpScreen.dart';
+import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
 import 'package:sanchalan/constant/constants.dart';
+import 'package:sanchalan/driver/view/driverHomeScreen.dart';
 import 'package:sanchalan/ride/View/bottomNavBar/bottomNavBarRider.dart';
 
 class MobileAuthServices {
@@ -74,14 +77,7 @@ class MobileAuthServices {
   static checkAuthenticateAndNavigate({required BuildContext context}) {
     bool userIsAuthenticate = checkAuthentication();
     userIsAuthenticate
-        ? Navigator.pushAndRemoveUntil(
-            context,
-            PageTransition(
-              child: const BottomNavBarRider(),
-              type: PageTransitionType.rightToLeft,
-            ),
-            (route) => false,
-          )
+        ? checkUser(context)
         : Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
@@ -90,5 +86,39 @@ class MobileAuthServices {
             ),
             (route) => false,
           );
+  }
+
+ static checkUser(BuildContext context) async {
+    bool userIsRegistered =
+        await ProfileDataCRUDServices.checkForRegisteredUser(context);
+
+    if (userIsRegistered == true) {
+      bool userIsDriver = await ProfileDataCRUDServices.userIsDriver(context);
+      if (userIsDriver == true) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+              child: const HomeScreenDriver(),
+              type: PageTransitionType.rightToLeft,
+            ),
+            (route) => false);
+      }else{
+        Navigator.pushAndRemoveUntil(
+            context,
+            PageTransition(
+              child: const BottomNavBarRider(),
+              type: PageTransitionType.rightToLeft,
+            ),
+            (route) => false);
+      }
+    }else{
+      Navigator.pushAndRemoveUntil(
+          context,
+          PageTransition(
+            child: const RegistrationScreen(),
+            type: PageTransitionType.rightToLeft,
+          ),
+          (route) => false);
+    }
   }
 }

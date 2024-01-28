@@ -47,7 +47,7 @@ class _SanchalanState extends State<Sanchalan> {
                 elevation: 0,
               ),
             ),
-            home: const LoginScreen(),
+            home: const SignInLogic(),
           ),
         );
       },

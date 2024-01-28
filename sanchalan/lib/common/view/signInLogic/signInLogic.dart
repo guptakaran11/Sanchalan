@@ -20,16 +20,15 @@ class _SignInLogicState extends State<SignInLogic> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: black,
-      body:const Center(
+      body: const Center(
         child: Image(
           image: AssetImage(
-            'assets/images/SanchalanLogo/sanchalanLogo.jpg',
+            'assets/images/SanchalanLogo/sanchalanSign.jpg',
           ),
         ),
       ),
     );
   }
 }
-
