@@ -88,7 +88,7 @@ class MobileAuthServices {
           );
   }
 
- static checkUser(BuildContext context) async {
+  static checkUser(BuildContext context) async {
     bool userIsRegistered =
         await ProfileDataCRUDServices.checkForRegisteredUser(context);
 
@@ -98,20 +98,19 @@ class MobileAuthServices {
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
-              child: const HomeScreenDriver(),
-              type: PageTransitionType.rightToLeft,
-            ),
+                child: const HomeScreenDriver(),
+                type: PageTransitionType.rightToLeft),
             (route) => false);
-      }else{
+      } 
+      else {
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
-              child: const BottomNavBarRider(),
-              type: PageTransitionType.rightToLeft,
-            ),
+                child: const BottomNavBarRider(),
+                type: PageTransitionType.rightToLeft),
             (route) => false);
       }
-    }else{
+    } else {
       Navigator.pushAndRemoveUntil(
           context,
           PageTransition(

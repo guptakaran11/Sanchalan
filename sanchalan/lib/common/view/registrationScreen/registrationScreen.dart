@@ -351,7 +351,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   color: white,
                 )
               : Text(
-                  'Continue',
+                  'Continuer',
                   style: AppTextStyles.small12Bold.copyWith(color: white),
                 ),
         ),

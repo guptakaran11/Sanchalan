@@ -3,8 +3,10 @@ import 'dart:developer';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sanchalan/common/controller/services/toastService.dart';
 import 'package:sanchalan/common/model/profileModelData.dart';
+import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
 import 'package:sanchalan/constant/constants.dart';
 
 class ProfileDataCRUDServices {
@@ -49,6 +51,14 @@ class ProfileDataCRUDServices {
         msg: 'User Registered Successful',
         toastStatus: 'SUCCESS',
         context: context,
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageTransition(
+          child: const SignInLogic(),
+          type: PageTransitionType.rightToLeft,
+        ),
+        (route) => false,
       );
     }).onError((error, stackTrace) {
       ToastService.sendScaffoldAlert(
