@@ -68,7 +68,6 @@ flutter:
   assets:
     - assets/images/authIcons/
     - assets/images/SanchalanLogo/
-    - assets/images/SanchalanLogo/sanchalanLogoFront.png/
     - assets/images/suggestions/
     - assets/images/promotion/
     - assets/images/moreWaysSanchalan/
