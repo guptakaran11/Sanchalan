@@ -79,7 +79,7 @@ class ProfileDataCRUDServices {
         ProfileDataModel userModel = ProfileDataModel.fromMap(
             jsonDecode(jsonEncode(snapshot.value)) as Map<String, dynamic>);
         log('User Type is ${userModel.userType}');
-        if (userModel.userType != 'CUSTOMER') {
+        if (userModel.userType != 'Customer') {
           return true;
         }
       }
