@@ -25,7 +25,7 @@ class _SignInLogicState extends State<SignInLogic> {
       body: const Center(
         child: Image(
           image: AssetImage(
-            'assets/images/SanchalanLogo/sanchalanSign.jpg',
+            'assets/images/SanchalanLogo/sanchalanLogo.png',
           ),
         ),
       ),
