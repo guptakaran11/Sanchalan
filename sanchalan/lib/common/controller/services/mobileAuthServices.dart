@@ -94,7 +94,7 @@ class MobileAuthServices {
 
     if (userIsRegistered == true) {
       bool userIsDriver = await ProfileDataCRUDServices.userIsDriver(context);
-      
+
       if (userIsDriver == true) {
         Navigator.pushAndRemoveUntil(
             context,
@@ -119,32 +119,5 @@ class MobileAuthServices {
           ),
           (route) => false);
     }
-
-    // if (userIsRegistered == true) {
-    //   bool userIsDriver = await ProfileDataCRUDServices.userIsDriver(context);
-    //   if (userIsDriver == true) {
-    //     Navigator.pushAndRemoveUntil(
-    //         context,
-    //         PageTransition(
-    //             child: const HomeScreenDriver(),
-    //             type: PageTransitionType.rightToLeft),
-    //         (route) => false);
-    //   } else {
-    //     Navigator.pushAndRemoveUntil(
-    //         context,
-    //         PageTransition(
-    //             child: const BottomNavBarRider(),
-    //             type: PageTransitionType.rightToLeft),
-    //         (route) => false);
-    //   }
-    // } else {
-    //   Navigator.pushAndRemoveUntil(
-    //       context,
-    //       PageTransition(
-    //         child: const RegistrationScreen(),
-    //         type: PageTransitionType.rightToLeft,
-    //       ),
-    //       (route) => false);
-    // }
   }
 }
