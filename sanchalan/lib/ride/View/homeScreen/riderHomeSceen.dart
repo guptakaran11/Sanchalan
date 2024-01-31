@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
+import 'package:sanchalan/ride/View/selectPickupNDropScreen/selectPickupNDropLocationScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class RiderHomeScreen extends StatefulWidget {
@@ -87,7 +89,15 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
         children: [
           // where to button
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  child: const PickupAndDropLocationScreen(),
+                  type: PageTransitionType.rightToLeft,
+                ),
+              );
+            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 3.h, vertical: 1.h),
               decoration: BoxDecoration(

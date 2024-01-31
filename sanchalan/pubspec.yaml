@@ -42,6 +42,7 @@ dependencies:
   flutter_svg: ^2.0.9
   geolocator: ^10.1.0
   google_maps_flutter: ^2.5.3
+  http: ^1.2.0
   image_picker: ^1.0.7
   intl: ^0.18.1
   just_audio: ^0.9.36
