@@ -15,7 +15,7 @@ import 'package:sanchalan/common/view/authScreens/otpScreen.dart';
 import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
 import 'package:sanchalan/constant/constants.dart';
-import 'package:sanchalan/driver/view/driverHomeScreen.dart';
+import 'package:sanchalan/driver/view/bottomNavBarDriver/bottomNavBarDriver.dart';
 import 'package:sanchalan/ride/View/bottomNavBar/bottomNavBarRider.dart';
 
 class MobileAuthServices {
@@ -102,7 +102,7 @@ class MobileAuthServices {
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
-                child: const HomeScreenDriver(),
+                child: const BottomNavBarDriver(),
                 type: PageTransitionType.rightToLeft),
             (route) => false);
       } else {
