@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:sanchalan/common/controller/provider/locationProvider.dart';
 import 'package:sanchalan/common/controller/services/APIsNKeys/apis.dart';
 import 'package:http/http.dart' as http;
 import 'package:sanchalan/common/controller/services/toastService.dart';
@@ -87,11 +91,13 @@ class LocationServices {
         for (var data in decodedResponse['predictions']) {
           // in this it is wrote as in video in this we have to import from plces api then predictions form the console
           address.add(SearchedAddressModel(
-            mainName: data['structured_formatting']['main_text'], //these all three fields is written same as in the video so correct it from the console
+            mainName: data['structured_formatting'][
+                'main_text'], //these all three fields is written same as in the video so correct it from the console
             secondaryName: data['structured_formatting']['secondary_text'],
             placeId: data['place_id'],
           ));
         }
+        context.read<LocationProvider>().updateSearchedAddress(address);
       }
     } catch (e) {
       throw Exception(e);

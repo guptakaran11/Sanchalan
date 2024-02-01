@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sizer/sizer.dart';
@@ -52,6 +54,15 @@ class _AccountScreenRiderState extends State<AccountScreenRider> {
       'Logout',
     ],
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<ProfileDataProvider>().getProfileData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -68,31 +79,64 @@ class _AccountScreenRiderState extends State<AccountScreenRider> {
               ),
               children: [
                 // Profile data
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 70.w,
-                      child: Text(
-                        'Karan Gupta',
-                        style: AppTextStyles.heading26Bold,
-                      ),
-                    ),
-                    Container(
-                      height: 16.w,
-                      width: 16.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: black87,
-                        ),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                              'assets/images/SanchalanLogo/sanchalanSign.jpg'),
-                        ),
-                      ),
-                    ),
-                  ],
+                Consumer<ProfileDataProvider>(
+                  builder: (context, profileProvider, child) {
+                    if (profileProvider.profileData == null) {
+                      return Row(
+                        children: [
+                          SizedBox(
+                            width: 70.w,
+                            child: Text(
+                              'User',
+                              style: AppTextStyles.heading26Bold,
+                            ),
+                          ),
+                          Container(
+                            height: 16.w,
+                            width: 16.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: black87,
+                              ),
+                              image: const DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/SanchalanLogo/sanchalanSign.jpg'),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    } else {
+                      return Row(
+                        children: [
+                          SizedBox(
+                            width: 70.w,
+                            child: Text(
+                              profileProvider.profileData!.name!,
+                              style: AppTextStyles.heading26Bold,
+                            ),
+                          ),
+                          Container(
+                            height: 16.w,
+                            width: 16.w,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: black87,
+                              ),
+                              image: DecorationImage(
+                                image: NetworkImage(profileProvider
+                                    .profileData!.profilePicUrl!),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  },
                 ),
+
                 SizedBox(
                   height: 3.h,
                 ),

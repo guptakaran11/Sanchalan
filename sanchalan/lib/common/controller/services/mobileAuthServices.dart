@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
+import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
 import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/common/view/authScreens/otpScreen.dart';
@@ -96,6 +97,8 @@ class MobileAuthServices {
       bool userIsDriver = await ProfileDataCRUDServices.userIsDriver(context);
 
       if (userIsDriver == true) {
+        // Navigator to Driver application
+        context.read<ProfileDataProvider>().getProfileData();
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(
@@ -103,6 +106,8 @@ class MobileAuthServices {
                 type: PageTransitionType.rightToLeft),
             (route) => false);
       } else {
+        // Navigator to rider application
+        context.read<ProfileDataProvider>().getProfileData();
         Navigator.pushAndRemoveUntil(
             context,
             PageTransition(

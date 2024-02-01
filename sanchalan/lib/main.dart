@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
+import 'package:sanchalan/common/controller/provider/locationProvider.dart';
+import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
@@ -38,6 +40,10 @@ class _SanchalanState extends State<Sanchalan> {
                 create: (_) => BottomNavBarRiderProvider()),
             ChangeNotifierProvider<MobileAuthProvider>(
                 create: (_) => MobileAuthProvider()),
+            ChangeNotifierProvider<LocationProvider>(
+                create: (_) => LocationProvider()),
+            ChangeNotifierProvider<ProfileDataProvider>(
+                create: (_) => ProfileDataProvider()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,
