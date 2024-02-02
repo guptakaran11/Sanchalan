@@ -29,6 +29,8 @@
         <meta-data
             android:name = "com.google.android.geo.API_KEY"
             android:value = "AIzaSyClgJ3xwhWrVTgnwTk7R1n1InVbVRbc_LC"/>
+            <!-- as this above meta-data is being written directly from the video33 
+            so its have to be imported form the console as to show the maps-->
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
