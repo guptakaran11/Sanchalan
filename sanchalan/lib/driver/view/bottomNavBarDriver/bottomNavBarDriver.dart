@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
-import 'package:sanchalan/driver/controller/bottomNavBarDriverProvider.dart';
+import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/view/accountScreenDriver/accountScreenDriver.dart';
 import 'package:sanchalan/driver/view/activityScreenDriver/activityScreen.dart';
 import 'package:sanchalan/driver/view/homeScreenDriver/driverHomeScreen.dart';
