@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
-import 'package:sanchalan/ride/controller/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
+import 'package:sanchalan/ride/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
 import 'package:sanchalan/ride/View/account/accountScreenRider.dart';
 import 'package:sanchalan/ride/View/activity/activityScreen.dart';
 import 'package:sanchalan/ride/View/homeScreen/riderHomeSceen.dart';

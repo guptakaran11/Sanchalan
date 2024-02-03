@@ -13,7 +13,7 @@ import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/controller/services/mapsProviderDriver.dart';
 import 'package:sanchalan/firebase_options.dart';
-import 'package:sanchalan/ride/controller/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
+import 'package:sanchalan/ride/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
 import 'package:sizer/sizer.dart';
 
 Future main() async {
