@@ -103,4 +103,6 @@ class LocationServices {
       throw Exception(e);
     }
   }
+
+  static getLatLngFromPlaceID(String placeId, BuildContext context){}
 }
