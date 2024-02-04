@@ -104,5 +104,34 @@ class LocationServices {
     }
   }
 
-  static getLatLngFromPlaceID(String placeId, BuildContext context){}
+  static getLatLngFromPlaceID(
+      SearchedAddressModel address, BuildContext context) async {
+    final api = Uri.parse(APIs.getLatLngFromPlaceIDAPI(address.placeId));
+
+    try {
+      var response = await http
+          .get(api, headers: {'Content-Type': 'application/json'}).timeout(
+              const Duration(seconds: 60), onTimeout: () {
+        ToastService.sendScaffoldAlert(
+          msg: 'Opps! Connection Timed Out',
+          toastStatus: 'ERROR',
+          context: context,
+        );
+        throw TimeoutException('Connection Timed Out');
+      });
+      if (response.statusCode == 200) {
+        var decodedResponse = jsonDecode(response.body);
+        var locationLatLng = decodedResponse['result']['geometry']['location'];
+        PickupNDropLocationModel model = PickupNDropLocationModel(
+          name: address.mainName,
+          description: address.secondaryName,
+          placeID: address.placeId,
+          latitude: locationLatLng['lat'],
+          longitude: locationLatLng['lng'],
+        );
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

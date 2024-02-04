@@ -9,6 +9,9 @@ class APIs {
       'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$placeName&key=$mapsPlatformcredential&sessiontoken=123254251&components=<Country>'; // I wrote as in video in this we have to use the places api from the cloud console
   static directionAPI(LatLng pickup, LatLng drop) =>
       'https://maps.googleapis.com/maps/api/directions/json?origin=${pickup.latitude},${pickup.longitude}&destination=${drop.latitude},${drop.longitude}&mode=driving&key=$mapsPlatformcredential ';
+
+  static getLatLngFromPlaceIDAPI(String placeId) =>
+      'https://maps.googleapis.com/maps/api/place/details/json?placeid= $placeId&Key= $mapsPlatformcredential';
 }
 
 //  to  check the correction is in section 5 and 6th for location and apis

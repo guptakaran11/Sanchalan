@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -227,6 +229,9 @@ class _PickupAndDropLocationScreenState
                       SearchedAddressModel currentAddress =
                           locationProvider.searchedAddress[index];
                       return ListTile(
+                        onTap: () {
+                          log(currentAddress.toMap().toString());
+                        },
                         leading: CircleAvatar(
                           backgroundColor: greyShade3,
                           radius: 3.h,
