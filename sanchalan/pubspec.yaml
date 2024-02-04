@@ -39,6 +39,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_geofire: ^2.0.3
+  flutter_polyline_points: ^2.0.0
   flutter_styled_toast: ^2.2.1
   flutter_svg: ^2.0.9
   flutter_swipe_button: ^2.1.1+1
