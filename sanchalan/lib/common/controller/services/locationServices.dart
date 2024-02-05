@@ -104,8 +104,8 @@ class LocationServices {
     }
   }
 
-  static getLatLngFromPlaceID(
-      SearchedAddressModel address, BuildContext context) async {
+  static getLatLngFromPlaceID(SearchedAddressModel address,
+      BuildContext context, String locationtype) async {
     final api = Uri.parse(APIs.getLatLngFromPlaceIDAPI(address.placeId));
 
     try {
@@ -129,6 +129,9 @@ class LocationServices {
           latitude: locationLatLng['lat'],
           longitude: locationLatLng['lng'],
         );
+        if (locationtype == 'DROP') {
+          context.read<LocationProvider>().updateDropLocation(model);
+        } else {}
       }
     } catch (e) {
       throw Exception(e);

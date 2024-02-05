@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sanchalan/common/model/directionModel.dart';
+import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 
 class RideRequestProvider extends ChangeNotifier {
@@ -14,10 +15,11 @@ class RideRequestProvider extends ChangeNotifier {
   BitmapDescriptor? destinationIconForMap;
   BitmapDescriptor? pickupIconForMap;
   bool updateMarkerTool = false;
-  LatLng? pickupLocation;
-  LatLng? dropLocation;
+  PickupNDropLocationModel? dropLocation;
+  PickupNDropLocationModel? pickupLocation;
 
-  updateRidePickupAndDropLocation(LatLng pickup, LatLng drop) {
+  updateRidePickupAndDropLocation(
+      PickupNDropLocationModel pickup, PickupNDropLocationModel drop) {
     pickupLocation = pickup;
     dropLocation = drop;
     notifyListeners();
