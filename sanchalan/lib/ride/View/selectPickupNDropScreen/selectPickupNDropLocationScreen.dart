@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/locationProvider.dart';
 import 'package:sanchalan/common/controller/services/locationServices.dart';
@@ -12,6 +13,8 @@ import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/common/model/searchedAddressModel.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
+import 'package:sanchalan/ride/View/bookARideScreen/bookARideScreen.dart';
+import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
 import 'package:sizer/sizer.dart';
 
 class PickupAndDropLocationScreen extends StatefulWidget {
@@ -45,7 +48,27 @@ class _PickupAndDropLocationScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getCurrentAddress();
+      FocusScope.of(context).requestFocus(dropLocationFocus);
     });
+  }
+
+  navigateToBookRideScreen() {
+    if (context.read<LocationProvider>().pickupLocation != null &&
+        context.read<LocationProvider>().dropLocation != null) {
+      Navigator.push(
+          context,
+          PageTransition(
+            child: const BookARideScreen(),
+            type: PageTransitionType.rightToLeft,
+          ));
+      PickupNDropLocationModel pickup =
+          context.read<LocationProvider>().pickupLocation!;
+      PickupNDropLocationModel drop =
+          context.read<LocationProvider>().dropLocation!;
+      context
+          .read<RideRequestProvider>()
+          .updateRidePickupAndDropLocation(pickup, drop);
+    }
   }
 
   @override
@@ -238,8 +261,11 @@ class _PickupAndDropLocationScreenState
                   SearchedAddressModel currentAddress =
                       locationProvider.searchedAddress[index];
                   return ListTile(
-                    onTap: () {
+                    onTap: () async {
                       log(currentAddress.toMap().toString());
+                      await LocationServices.getLatLngFromPlaceID(
+                          currentAddress, context, locationType);
+                      navigateToBookRideScreen();
                     },
                     leading: CircleAvatar(
                       backgroundColor: greyShade3,

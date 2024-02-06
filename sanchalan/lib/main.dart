@@ -14,6 +14,7 @@ import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.
 import 'package:sanchalan/driver/controller/services/mapsProviderDriver.dart';
 import 'package:sanchalan/firebase_options.dart';
 import 'package:sanchalan/ride/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
+import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
 import 'package:sizer/sizer.dart';
 
 Future main() async {
@@ -48,6 +49,8 @@ class _SanchalanState extends State<Sanchalan> {
             // ! Riders Providers
             ChangeNotifierProvider<BottomNavBarRiderProvider>(
                 create: (_) => BottomNavBarRiderProvider()),
+            ChangeNotifierProvider<RideRequestProvider>(
+                create: (_) => RideRequestProvider()),
             // ! Driver Providers
             ChangeNotifierProvider<BottomNavBarDriverProvider>(
                 create: (_) => BottomNavBarDriverProvider()),

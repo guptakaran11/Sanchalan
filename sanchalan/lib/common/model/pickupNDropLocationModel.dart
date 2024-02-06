@@ -5,8 +5,8 @@ class PickupNDropLocationModel {
  String? name; 
  String? description; 
  String? placeID; 
- String? latitude; 
- String? longitude; 
+ double? latitude; 
+ double? longitude; 
   PickupNDropLocationModel({
     this.name,
     this.description,
@@ -30,8 +30,8 @@ class PickupNDropLocationModel {
       name: map['name'] != null ? map['name'] as String : null,
       description: map['description'] != null ? map['description'] as String : null,
       placeID: map['placeID'] != null ? map['placeID'] as String : null,
-      latitude: map['latitude'] != null ? map['latitude'] as String : null,
-      longitude: map['longitude'] != null ? map['longitude'] as String : null,
+      latitude: map['latitude'] != null ? map['latitude'] as double : null,
+      longitude: map['longitude'] != null ? map['longitude'] as double : null,
     );
   }
 

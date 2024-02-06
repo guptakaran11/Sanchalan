@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -19,9 +21,19 @@ class RideRequestProvider extends ChangeNotifier {
   PickupNDropLocationModel? pickupLocation;
 
   updateRidePickupAndDropLocation(
-      PickupNDropLocationModel pickup, PickupNDropLocationModel drop) {
+    PickupNDropLocationModel pickup,
+    PickupNDropLocationModel drop,
+  ) {
     pickupLocation = pickup;
     dropLocation = drop;
+    notifyListeners();
+    log('PICKUP and DROP LOCATION IS');
+    log(pickupLocation!.toMap().toString());
+    log(dropLocation!.toMap().toString());
+  }
+
+  updateUpdateMarkerBool(bool newStatus) {
+    updateMarkerTool = newStatus;
     notifyListeners();
   }
 

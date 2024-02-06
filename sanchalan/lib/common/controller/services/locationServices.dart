@@ -2,6 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -58,9 +59,11 @@ class LocationServices {
           // description:,
           placeID: decodedResponse['results'][0][
               'place_id'], // same as in this it is wrong it import from the api
-          latitude: position.latitude.toString(),
-          longitude: position.longitude.toString(),
+          latitude: position.latitude,
+          longitude: position.longitude,
         );
+        log(model.toMap().toString());
+        context.read<LocationProvider>().updatePickupLocation(model);
         return model;
       }
     } catch (e) {
@@ -105,7 +108,7 @@ class LocationServices {
   }
 
   static getLatLngFromPlaceID(SearchedAddressModel address,
-      BuildContext context, String locationtype) async {
+      BuildContext context, String locationType) async {
     final api = Uri.parse(APIs.getLatLngFromPlaceIDAPI(address.placeId));
 
     try {
@@ -129,7 +132,7 @@ class LocationServices {
           latitude: locationLatLng['lat'],
           longitude: locationLatLng['lng'],
         );
-        if (locationtype == 'DROP') {
+        if (locationType == 'DROP') {
           context.read<LocationProvider>().updateDropLocation(model);
         } else {
           context.read<LocationProvider>().updatePickupLocation(model);
