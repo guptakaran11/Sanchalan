@@ -131,7 +131,9 @@ class LocationServices {
         );
         if (locationtype == 'DROP') {
           context.read<LocationProvider>().updateDropLocation(model);
-        } else {}
+        } else {
+          context.read<LocationProvider>().updatePickupLocation(model);
+        }
       }
     } catch (e) {
       throw Exception(e);
