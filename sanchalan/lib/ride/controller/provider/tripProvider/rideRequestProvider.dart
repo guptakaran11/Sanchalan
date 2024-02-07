@@ -8,6 +8,10 @@ import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 
 class RideRequestProvider extends ChangeNotifier {
+   CameraPosition initialCameraPosition = const CameraPosition(
+    target: LatLng(37.4, -122),
+    zoom: 14,
+  );
   Set<Marker> riderMarker = <Marker>{};
   Set<Polyline> polylineSet = {};
   Polyline? polyline;
