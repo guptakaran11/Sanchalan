@@ -7,6 +7,16 @@ class LocationProvider extends ChangeNotifier {
   PickupNDropLocationModel? dropLocation;
   PickupNDropLocationModel? pickupLocation;
 
+  nullifyDropLocation() {
+    dropLocation = null;
+    notifyListeners();
+  }
+
+  nullifyPickupLocation() {
+    pickupLocation = null;
+    notifyListeners();
+  }
+
   updateSearchedAddress(List<SearchedAddressModel> newAdddressList) {
     searchedAddress = newAdddressList;
     notifyListeners();

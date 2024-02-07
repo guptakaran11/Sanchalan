@@ -8,6 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/locationProvider.dart';
+import 'package:sanchalan/common/controller/services/directionServices.dart';
 import 'package:sanchalan/common/controller/services/locationServices.dart';
 import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/common/model/searchedAddressModel.dart';
@@ -52,15 +53,9 @@ class _PickupAndDropLocationScreenState
     });
   }
 
-  navigateToBookRideScreen() {
+  navigateToBookRideScreen() async {
     if (context.read<LocationProvider>().pickupLocation != null &&
         context.read<LocationProvider>().dropLocation != null) {
-      Navigator.push(
-          context,
-          PageTransition(
-            child: const BookARideScreen(),
-            type: PageTransitionType.rightToLeft,
-          ));
       PickupNDropLocationModel pickup =
           context.read<LocationProvider>().pickupLocation!;
       PickupNDropLocationModel drop =
@@ -68,6 +63,24 @@ class _PickupAndDropLocationScreenState
       context
           .read<RideRequestProvider>()
           .updateRidePickupAndDropLocation(pickup, drop);
+      PickupNDropLocationModel pickupModel =
+          context.read<LocationProvider>().pickupLocation!;
+      PickupNDropLocationModel dropModel =
+          context.read<LocationProvider>().dropLocation!;
+      LatLng pickupLocation =
+          LatLng(pickupModel.latitude!, pickupModel.longitude!);
+      LatLng dropLocation = LatLng(dropModel.latitude!, dropModel.longitude!);
+      await DirectionServices.getDirectionDetails(
+          pickupLocation, dropLocation, context);
+      context
+          .read<RideRequestProvider>()
+          .decodePolyLineAndUpdatePolyLineField();
+      Navigator.push(
+          context,
+          PageTransition(
+            child: const BookARideScreen(),
+            type: PageTransitionType.rightToLeft,
+          ));
     }
   }
 
@@ -153,6 +166,11 @@ class _PickupAndDropLocationScreenState
                               decoration: InputDecoration(
                                 suffixIcon: InkWell(
                                   onTap: () {
+                                    context
+                                        .read<LocationProvider>()
+                                        .nullifyPickupLocation();
+                                    FocusScope.of(context)
+                                        .requestFocus(pickupLocationFocus);
                                     pickupLocationController.clear();
                                   },
                                   child: Icon(
@@ -202,6 +220,11 @@ class _PickupAndDropLocationScreenState
                               decoration: InputDecoration(
                                 suffixIcon: InkWell(
                                   onTap: () {
+                                    context
+                                        .read<LocationProvider>()
+                                        .nullifyDropLocation();
+                                    FocusScope.of(context)
+                                        .requestFocus(dropLocationFocus);
                                     dropLocationController.clear();
                                   },
                                   child: Icon(
@@ -263,6 +286,11 @@ class _PickupAndDropLocationScreenState
                   return ListTile(
                     onTap: () async {
                       log(currentAddress.toMap().toString());
+                      if (locationType == 'DROP') {
+                        dropLocationController.text = currentAddress.mainName;
+                      } else {
+                        pickupLocationController.text = currentAddress.mainName;
+                      }
                       await LocationServices.getLatLngFromPlaceID(
                           currentAddress, context, locationType);
                       navigateToBookRideScreen();

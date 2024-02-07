@@ -19,6 +19,12 @@ class _BookARideScreenState extends State<BookARideScreen> {
   GoogleMapController? mapController;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {});  //something is left 
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<RideRequestProvider>(
