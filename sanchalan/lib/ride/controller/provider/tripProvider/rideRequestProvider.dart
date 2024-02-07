@@ -8,11 +8,11 @@ import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 
 class RideRequestProvider extends ChangeNotifier {
-   CameraPosition initialCameraPosition = const CameraPosition(
+  CameraPosition initialCameraPosition = const CameraPosition(
     target: LatLng(37.4, -122),
     zoom: 14,
   );
-  Set<Marker> riderMarker = <Marker>{};
+  Set<Marker> riderMarker = Set<Marker>();
   Set<Polyline> polylineSet = {};
   Polyline? polyline;
   List<LatLng> polylineCoordinatesList = [];
@@ -23,6 +23,58 @@ class RideRequestProvider extends ChangeNotifier {
   bool updateMarkerTool = false;
   PickupNDropLocationModel? dropLocation;
   PickupNDropLocationModel? pickupLocation;
+  int sanchalanGoFare = 0;
+  int sanchalanGoSedanFare = 0;
+  int sanchalanPremierFare = 0;
+  int sanchalanXLFare = 0;
+
+  makeFareZero() {
+    sanchalanGoFare = 0;
+    sanchalanGoSedanFare = 0;
+    sanchalanPremierFare = 0;
+    sanchalanXLFare = 0;
+    notifyListeners();
+  }
+
+  getFare() {
+    int baseFare = 50;
+    int sanchalanGoDistancePerKM = 12;
+    int sanchalanGoSedanDistancePerKM = 15;
+    int sanchalanPremierDistancePerKM = 17;
+    int sanchalanXLDistancePerKM = 20;
+    int sanchalanGoDurationPerMinute = 1;
+    int sanchalanGoSedanDurationPerMinute = 2;
+    double sanchalanPrimierDurationPerMinute = 2.5;
+    int sanchalanXLDurationPerMinute = 3;
+
+    sanchalanGoFare = (baseFare +
+            sanchalanGoDistancePerKM *
+                double.parse(
+                    (directionDetails!.distanceInMeter / 1000).toString()) +
+            (sanchalanGoDurationPerMinute * (directionDetails!.duration / 60)))
+        .round();
+    sanchalanGoSedanFare = (baseFare +
+            sanchalanGoSedanDistancePerKM *
+                double.parse(
+                    (directionDetails!.distanceInMeter / 1000).toString()) +
+            (sanchalanGoSedanDurationPerMinute *
+                (directionDetails!.duration / 60)))
+        .round();
+    sanchalanPremierFare = (baseFare +
+            sanchalanPremierDistancePerKM *
+                double.parse(
+                    (directionDetails!.distanceInMeter / 1000).toString()) +
+            (sanchalanPrimierDurationPerMinute *
+                (directionDetails!.duration / 60)))
+        .round();
+    sanchalanXLFare = (baseFare +
+            sanchalanXLDistancePerKM *
+                double.parse(
+                    (directionDetails!.distanceInMeter / 1000).toString()) +
+            (sanchalanXLDurationPerMinute * (directionDetails!.duration / 60)))
+        .round();
+    notifyListeners();
+  }
 
   updateRidePickupAndDropLocation(
     PickupNDropLocationModel pickup,
@@ -108,6 +160,50 @@ class RideRequestProvider extends ChangeNotifier {
           });
         }
       }
+    }
+  }
+
+  updateMarker() async {
+    riderMarker.clear();
+    Marker pickupMarker = Marker(
+      markerId: const MarkerId('PickupMarker'),
+      position: LatLng(
+        pickupLocation!.latitude!,
+        pickupLocation!.longitude!,
+      ),
+      icon: pickupIconForMap!,
+    );
+    Marker destinationMarker = Marker(
+      markerId: const MarkerId('PickupMarker'),
+      position: LatLng(
+        dropLocation!.latitude!,
+        dropLocation!.longitude!,
+      ),
+      icon: pickupIconForMap!,
+    );
+    if (updateMarkerTool == true) {
+      Marker carMarker = Marker(
+        markerId: const MarkerId('PickupMarker'),
+        position: LatLng(
+          pickupLocation!.latitude!,
+          pickupLocation!.longitude!,
+        ),
+        icon: pickupIconForMap!,
+      );
+      riderMarker.add(carMarker);
+    }
+    riderMarker.add(pickupMarker);
+    riderMarker.add(destinationMarker);
+    notifyListeners();
+    if (updateMarkerTool == true) {
+      await Future.delayed(
+        const Duration(
+          seconds: 5,
+        ),
+        () async {
+          await updateMarker();
+        },
+      );
     }
   }
 }
