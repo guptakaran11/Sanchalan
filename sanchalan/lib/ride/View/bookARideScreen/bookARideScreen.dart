@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
+import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -72,7 +73,10 @@ class _BookARideScreenState extends State<BookARideScreen> {
     return Scaffold(
       body: SlidingUpPanel(
         controller: panelController,
-        panelBuilder: (context) {
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(15.sp),
+        ),
+        panelBuilder: (controller) {
           return Consumer<RideRequestProvider>(
               builder: (context, rideRequestProvider, child) {
             if ((rideRequestProvider.sanchalanGoFare == 0) &&
@@ -86,10 +90,10 @@ class _BookARideScreenState extends State<BookARideScreen> {
               );
             } else {
               return ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 3.w,
-                  vertical: 2.h,
-                ),
+                controller: controller,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -102,39 +106,74 @@ class _BookARideScreenState extends State<BookARideScreen> {
                           color: greyShade3,
                         ),
                       ),
-                      SizedBox(
-                        height: 2.h,
-                      ),
-                      ListView.builder(
-                        itemCount: rideList.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return Container(
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 6.h,
-                                  width: 6.h,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.sp),
-                                    border: Border.all(color: black38),
-                                    color: white,
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        rideList[index][0],
-                                      ),
-                                    ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
+                  ListView.builder(
+                    itemCount: rideList.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(vertical: 1.h),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 8.h,
+                              width: 8.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.sp),
+                                border: Border.all(color: black38),
+                                color: white,
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    rideList[index][0],
                                   ),
                                 ),
-                                SizedBox(width: 3.w,),
-                                Column(children: [],)
-                              ],
+                              ),
                             ),
-                          );
-                        },
-                      ),
-                    ],
+                            SizedBox(
+                              width: 3.w,
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    getCarTypr(index),
+                                    style: AppTextStyles.body14Bold,
+                                  ),
+                                  SizedBox(
+                                    width: 2.w,
+                                  ),
+                                  Icon(
+                                    Icons.person,
+                                    color: black,
+                                  ),
+                                  Text(rideList[index][2]),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  getFare(index).toString(),
+                                  style: AppTextStyles.body14Bold,
+                                ),
+                                Text(
+                                  getFare(index).toString(),
+                                  style: AppTextStyles.small12.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: grey,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ],
               );
