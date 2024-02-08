@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
 import 'package:sanchalan/constant/utils/colors.dart';

@@ -1,11 +1,13 @@
+// ignore_for_file: file_names
+
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/Widgets/assetGen.dart';
+import 'package:sanchalan/common/Widgets/orDivider.dart';
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
 import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
 import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
-import 'package:sanchalan/common/Widgets/orDivider.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sizer/sizer.dart';
