@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
@@ -21,7 +22,8 @@ class BookARideScreen extends StatefulWidget {
 class _BookARideScreenState extends State<BookARideScreen> {
   Completer<GoogleMapController> mapControllerDriver = Completer();
   GoogleMapController? mapController;
-
+  int selectedCarType = 0;
+  bool bookRideButtonPressed = false;
   @override
   void initState() {
     super.initState();
@@ -68,10 +70,12 @@ class _BookARideScreenState extends State<BookARideScreen> {
     ['assets/images/vehicle/SanchalanXL.png', 'Sanchalan XL', '6'],
   ];
   final panelController = PanelController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SlidingUpPanel(
+        minHeight: 9.h,
         controller: panelController,
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(15.sp),
@@ -92,7 +96,7 @@ class _BookARideScreenState extends State<BookARideScreen> {
               return ListView(
                 controller: controller,
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
                 children: [
                   Row(
@@ -116,65 +120,107 @@ class _BookARideScreenState extends State<BookARideScreen> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(vertical: 1.h),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 8.h,
-                              width: 8.h,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8.sp),
-                                border: Border.all(color: black38),
-                                color: white,
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    rideList[index][0],
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedCarType = index;
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 0.5.h),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 1.h,
+                            horizontal: 3.w,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8.sp),
+                            border: Border.all(
+                              color: index == selectedCarType
+                                  ? black
+                                  : transparent,
+                              width: 2,
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 8.h,
+                                width: 8.h,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.sp),
+                                  border: Border.all(color: black38),
+                                  color: white,
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                      rideList[index][0],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 3.w,
-                            ),
-                            Expanded(
-                              child: Row(
+                              SizedBox(
+                                width: 3.w,
+                              ),
+                              Expanded(
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      getCarTypr(index),
+                                      style: AppTextStyles.body14Bold,
+                                    ),
+                                    SizedBox(
+                                      width: 2.w,
+                                    ),
+                                    Icon(
+                                      Icons.person,
+                                      color: black,
+                                    ),
+                                    Text(rideList[index][2]),
+                                  ],
+                                ),
+                              ),
+                              Column(
                                 children: [
                                   Text(
-                                    getCarTypr(index),
+                                    '₹ ${getFare(index).toString()}',
                                     style: AppTextStyles.body14Bold,
                                   ),
-                                  SizedBox(
-                                    width: 2.w,
+                                  Text(
+                                    (getFare(index) * 1.15).round().toString(),
+                                    style: AppTextStyles.small12.copyWith(
+                                      decoration: TextDecoration.lineThrough,
+                                      color: grey,
+                                    ),
                                   ),
-                                  Icon(
-                                    Icons.person,
-                                    color: black,
-                                  ),
-                                  Text(rideList[index][2]),
                                 ],
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  getFare(index).toString(),
-                                  style: AppTextStyles.body14Bold,
-                                ),
-                                Text(
-                                  getFare(index).toString(),
-                                  style: AppTextStyles.small12.copyWith(
-                                    decoration: TextDecoration.lineThrough,
-                                    color: grey,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       );
                     },
                   ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
+                  ElevatedButtonCommon(
+                    onPressed: () {},
+                    backgroundColor: black,
+                    height: 6.h,
+                    width: 94.w,
+                    child: Builder(builder: (context) {
+                      if (bookRideButtonPressed == true) {
+                        return CircularProgressIndicator(
+                          color: white,
+                        );
+                      } else {
+                        return Text(
+                          'Continue',
+                          style:
+                              AppTextStyles.body16Bold.copyWith(color: white),
+                        );
+                      }
+                    }),
+                  )
                 ],
               );
             }
