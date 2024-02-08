@@ -49,6 +49,7 @@ class _PickupAndDropLocationScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getCurrentAddress();
+       context.read<RideRequestProvider>().createIcons(context);
       FocusScope.of(context).requestFocus(dropLocationFocus);
     });
   }
@@ -72,6 +73,10 @@ class _PickupAndDropLocationScreenState
       LatLng dropLocation = LatLng(dropModel.latitude!, dropModel.longitude!);
       await DirectionServices.getDirectionDetails(
           pickupLocation, dropLocation, context);
+      context.read<RideRequestProvider>().makeFareZero();
+      context.read<RideRequestProvider>().createIcons(context);
+      context.read<RideRequestProvider>().updateMarker();
+      context.read<RideRequestProvider>().getFare();
       context
           .read<RideRequestProvider>()
           .decodePolyLineAndUpdatePolyLineField();
