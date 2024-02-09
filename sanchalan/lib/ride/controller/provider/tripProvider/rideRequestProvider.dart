@@ -1,13 +1,16 @@
 // ignore_for_file: file_names
 
 import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sanchalan/common/model/directionModel.dart';
 import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
+import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
+import 'package:sanchalan/ride/model/nearbyDriversModel.dart';
 
 class RideRequestProvider extends ChangeNotifier {
   CameraPosition initialCameraPosition = const CameraPosition(
@@ -29,6 +32,9 @@ class RideRequestProvider extends ChangeNotifier {
   int sanchalanGoSedanFare = 0;
   int sanchalanPremierFare = 0;
   int sanchalanXLFare = 0;
+  // Fetch Nearby Drivers List
+  bool fetchNearByDrivers = false;
+  List<NearByDriversModel> nearbyDrivers = [];
 
   makeFareZero() {
     sanchalanGoFare = 0;
@@ -183,14 +189,30 @@ class RideRequestProvider extends ChangeNotifier {
       ),
       icon: pickupIconForMap!,
     );
+    if (fetchNearByDrivers == true) {
+      math.Random random = math.Random();
+      for (var driver in nearbyDrivers) {
+        double rotation = random.nextInt(360).toDouble();
+        Marker carMarker = Marker(
+          markerId: MarkerId(driver.driverID),
+          rotation: rotation,
+          position: LatLng(
+            pickupLocation!.latitude!,
+            pickupLocation!.longitude!,
+          ),
+          icon: carIconForMap!,
+        );
+        riderMarker.add(carMarker);
+      }
+    }
     if (updateMarkerTool == true) {
       Marker carMarker = Marker(
-        markerId: const MarkerId('PickupMarker'),
+        markerId: MarkerId(auth.currentUser!.phoneNumber!),
         position: LatLng(
           pickupLocation!.latitude!,
           pickupLocation!.longitude!,
         ),
-        icon: pickupIconForMap!,
+        icon: carIconForMap!,
       );
       riderMarker.add(carMarker);
     }
@@ -207,5 +229,31 @@ class RideRequestProvider extends ChangeNotifier {
         },
       );
     }
+  }
+
+// ! Nearby Drivers Functions
+  updateFetchNearByDrivers(bool newStatus) {
+    fetchNearByDrivers == newStatus;
+    notifyListeners();
+  }
+
+  addDriver(NearByDriversModel driver) {
+    nearbyDrivers.add(driver);
+    notifyListeners();
+  }
+
+  removeDriver(String driverID) {
+    int index =
+        nearbyDrivers.indexWhere((element) => element.driverID == driverID);
+    nearbyDrivers.removeAt(index);
+    notifyListeners();
+  }
+
+  updateNearByLocation(NearByDriversModel driver) {
+    int index = nearbyDrivers
+        .indexWhere((element) => element.driverID == driver.driverID);
+    nearbyDrivers[index].longitude = driver.longitude;
+    nearbyDrivers[index].latitude = driver.latitude;
+    notifyListeners();
   }
 }

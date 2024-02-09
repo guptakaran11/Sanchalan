@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
+import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
-import 'package:sanchalan/ride/model/rideRequestServices/rideRequestServices.dart';
+import 'package:sanchalan/ride/controller/services/nearByDriverServices/nearByDriverServices.dart';
+import 'package:sanchalan/ride/controller/services/rideRequestServices/rideRequestServices.dart';
 import 'package:sizer/sizer.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'dart:math' as math;
@@ -30,7 +32,15 @@ class _BookARideScreenState extends State<BookARideScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {}); //something is left
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      context.read<RideRequestProvider>().updateFetchNearByDrivers(true);
+      context.read<RideRequestProvider>().updateUpdateMarkerBool(true);
+      PickupNDropLocationModel pickupModel =
+          context.read<RideRequestProvider>().pickupLocation!;
+      LatLng pickupLocation =
+          LatLng(pickupModel.latitude!, pickupModel.longitude!);
+      await NearByDriverServices.getNearByDriver(pickupLocation, context);
+    });
   }
 
   int getFare(
