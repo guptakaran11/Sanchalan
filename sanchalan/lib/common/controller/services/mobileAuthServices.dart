@@ -9,7 +9,9 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
 import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
+import 'package:sanchalan/common/controller/services/firebasePushNotificationsServices/pushNotificationServices.dart';
 import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
+import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/common/view/authScreens/otpScreen.dart';
 import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
@@ -94,6 +96,11 @@ class MobileAuthServices {
         await ProfileDataCRUDServices.checkForRegisteredUser(context);
 
     if (userIsRegistered == true) {
+      ProfileDataModel profileData =
+          await ProfileDataCRUDServices.getProfileDataFromRealTimeDatabase(
+              auth.currentUser!.phoneNumber!);
+      PushNotificationServices.initializeFirebaseMessagingForUsers(
+          profileData, context);
       bool userIsDriver = await ProfileDataCRUDServices.userIsDriver(context);
 
       if (userIsDriver == true) {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:js';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class PushNotificationServices {
           firebaseMessagingBackGroundHandlerDriver);
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         if (message.notification != null) {
-          firebaseMessagingForeGroundHandlerDriver(message);
+          firebaseMessagingForeGroundHandlerDriver(message, context);
         }
       });
     } else {
@@ -52,8 +53,10 @@ class PushNotificationServices {
     String riderID = getRideRequestID(message);
   }
 
-  static firebaseMessagingForeGroundHandlerDriver(RemoteMessage message) async {
-    String riderID = getRideRequestID(message);
+  static firebaseMessagingForeGroundHandlerDriver(
+      RemoteMessage message, BuildContext context) async {
+    String rideID = getRideRequestID(message);
+    fetchRideRequestInfo(rideID, context);
   }
 
   // ! ******************************************************
@@ -81,5 +84,24 @@ class PushNotificationServices {
     }).onError((error, stackTrace) {
       throw Exception(error);
     });
+  }
+
+  static subscribeToNotification(ProfileDataModel model) {
+    if (model.userType == 'DRIVER') {
+      firebaseMessaging.subscribeToTopic('DRIVER');
+      firebaseMessaging.subscribeToTopic('USER');
+    } else {
+      firebaseMessaging.subscribeToTopic('RIDER');
+      firebaseMessaging.subscribeToTopic('USER');
+    }
+  }
+
+  static initializeFirebaseMessagingForUsers(
+    ProfileDataModel profileData,
+    BuildContext context,
+  ) {
+    initializeFirebaseMessaging(profileData, context);
+    getToken(profileData);
+    subscribeToNotification(profileData);
   }
 }
