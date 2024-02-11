@@ -83,8 +83,8 @@ flutter:
     - assets/images/services/
     - assets/images/vehicle/
     - assets/images/icons/
-    # - assets/sounds/
-    # - assets/json/customizedMap.json
+    - assets/sounds/
+    - assets/json/customizedMap.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

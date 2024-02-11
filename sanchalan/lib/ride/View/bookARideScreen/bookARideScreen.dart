@@ -64,13 +64,13 @@ class _BookARideScreenState extends State<BookARideScreen> {
   getCarType(int carType) {
     switch (carType) {
       case 0:
-        return 'Sanchlan Go';
+        return 'Sanchalan Go';
       case 1:
-        return 'Sanchlan Go Sedan';
+        return 'Sanchalan Go Sedan';
       case 2:
-        return 'Sanchlan Premier';
+        return 'Sanchalan Premier';
       case 3:
-        return 'Sanchlan XL';
+        return 'Sanchalan XL';
       default:
         return 'Sanchalan Go';
     }
