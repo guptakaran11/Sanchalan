@@ -6,6 +6,7 @@ import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sizer/sizer.dart';
 
+
 class PushNotificationDialogue {
   static rideRequestDialogue(
       RideRequestModel rideRequestModel, BuildContext context) {

@@ -338,7 +338,7 @@ class _BookARideScreenState extends State<BookARideScreen> {
                   },
                 ),
                 Positioned(
-                  top: 4.h,
+                  top: 7.h,
                   left: 5.w,
                   child: InkWell(
                     onTap: () => Navigator.pop(context),
@@ -350,7 +350,7 @@ class _BookARideScreenState extends State<BookARideScreen> {
                         color: white,
                       ),
                       child: Icon(
-                        Icons.arrow_back_ios,
+                        Icons.arrow_back,
                         color: black,
                         size: 4.h,
                       ),
