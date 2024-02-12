@@ -37,4 +37,13 @@ class RideRequestServices {
         return 'RIDE_COMPLETED';
     }
   }
+
+  static cancelRideRequest(BuildContext context) {
+    FirebaseDatabase.instance
+        .ref()
+        .child('RideRequest/${auth.currentUser!.phoneNumber}')
+        .remove()
+        .then((value) {});
+    Navigator.pop(context);
+  }
 }

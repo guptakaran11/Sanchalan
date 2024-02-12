@@ -4,8 +4,8 @@ import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
+import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServices.dart';
 import 'package:sizer/sizer.dart';
-
 
 class PushNotificationDialogue {
   static rideRequestDialogue(
@@ -15,6 +15,10 @@ class PushNotificationDialogue {
         builder: (context) {
           audioPlayer.setAsset('assets/sounds/alert.mp3');
           audioPlayer.play();
+          RideRequestServicesDriver.checkRideAvailability(
+            context,
+            rideRequestModel.riderProfile.mobileNumber!,
+          );
           return AlertDialog(
             content: SizedBox(
               height: 40.h,
