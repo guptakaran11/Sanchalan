@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, file_names
+// ignore_for_file: use_build_context_synchronously, file_names, unused_local_variable
 
 import 'dart:developer';
 
@@ -99,8 +99,8 @@ class MobileAuthServices {
       ProfileDataModel profileData =
           await ProfileDataCRUDServices.getProfileDataFromRealTimeDatabase(
               auth.currentUser!.phoneNumber!);
-      PushNotificationServices.initializeFirebaseMessagingForUsers(
-          profileData, context);
+      // PushNotificationServices.initializeFirebaseMessagingForUsers(
+      //     profileData, context);
       bool userIsDriver = await ProfileDataCRUDServices.userIsDriver(context);
 
       if (userIsDriver == true) {

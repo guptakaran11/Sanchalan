@@ -1,10 +1,14 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
+import 'package:sanchalan/common/controller/services/firebasePushNotificationsServices/pushNotificationServices.dart';
+import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
+import 'package:sanchalan/common/model/profileModelData.dart';
+import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/view/accountScreenDriver/accountScreenDriver.dart';
@@ -66,6 +70,18 @@ class _BottomNavBarDriverState extends State<BottomNavBarDriver> {
   }
 
   PersistentTabController controller = PersistentTabController(initialIndex: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ProfileDataModel profileData =
+          await ProfileDataCRUDServices.getProfileDataFromRealTimeDatabase(
+              auth.currentUser!.phoneNumber!);
+      PushNotificationServices.initializeFirebaseMessagingForUsers(
+          profileData, context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

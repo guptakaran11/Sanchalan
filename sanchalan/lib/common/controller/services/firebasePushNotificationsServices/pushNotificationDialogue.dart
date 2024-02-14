@@ -21,9 +21,10 @@ class PushNotificationDialogue {
           );
           return AlertDialog(
             content: SizedBox(
-              height: 40.h,
+              height: 50.h,
               width: 90.w,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Builder(builder: (context) {
                     if (rideRequestModel.carTrpe == 'Sanchalan Go') {
@@ -114,6 +115,9 @@ class PushNotificationDialogue {
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 2.h,
+                  ),
                   SwipeButton(
                     thumbPadding: EdgeInsets.all(1.w),
                     thumb: Icon(
@@ -130,7 +134,7 @@ class PushNotificationDialogue {
                     child: Builder(
                       builder: (context) {
                         return Text(
-                          'Accept Ride Request',
+                          'Accept Ride',
                           style: AppTextStyles.body16Bold,
                         );
                       },
@@ -151,11 +155,14 @@ class PushNotificationDialogue {
                     activeTrackColor: greyShade3,
                     elevationThumb: 2,
                     elevationTrack: 2,
-                    onSwipe: () {},
+                    onSwipe: () {
+                      audioPlayer.stop();
+                      Navigator.pop(context);
+                    },
                     child: Builder(
                       builder: (context) {
                         return Text(
-                          'Deny Ride Request',
+                          'Deny Ride',
                           style: AppTextStyles.body16Bold,
                         );
                       },
