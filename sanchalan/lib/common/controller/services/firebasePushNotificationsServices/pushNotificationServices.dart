@@ -7,6 +7,8 @@ import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/constants.dart';
 
+import 'pushNotificationDialogue.dart';
+
 class PushNotificationServices {
   // Initializing firebase  messaging instance
   static FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
@@ -79,6 +81,11 @@ class PushNotificationServices {
         ) as Map<String, dynamic>);
         log(rideRequestModel.toMap().toString());
         // show the dialog to accept the request
+
+        PushNotificationDialogue.rideRequestDialogue(
+          rideRequestModel,
+          context,
+        );
       }
     }).onError((error, stackTrace) {
       throw Exception(error);
