@@ -4,7 +4,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/constant/constants.dart';
-import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/driver/view/homeScreenDriver/driverHomeScreen.dart';
 import 'package:sanchalan/driver/view/homeScreenDriver/tripScreen.dart';
 
