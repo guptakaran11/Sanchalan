@@ -4,7 +4,10 @@ import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
 import 'package:sanchalan/common/controller/services/toastService.dart';
+import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/constants.dart';
 
@@ -79,5 +82,28 @@ class RideRequestServicesDriver {
         .ref()
         .child('User/${auth.currentUser!.phoneNumber}/activeRideRequestID');
     tripRef.set(rideID);
+  }
+
+  static acceptRideRequest(String rideID, BuildContext context) async {
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref()
+        .child('RideRequest/$rideID/driverProfile');
+
+    ProfileDataModel profileData =
+        context.read<ProfileDataProvider>().profileData!;
+    ref.set(profileData.toMap()).then((value) {
+      ToastService.sendScaffoldAlert(
+        msg: 'Ride Request Registered Successfully',
+        toastStatus: 'SUCCESS',
+        context: context,
+      );
+    }).onError((error, stackTrace) {
+      ToastService.sendScaffoldAlert(
+        msg: 'OPPS! Unable to Register Ride',
+        toastStatus: 'ERROR',
+        context: context,
+      );
+      throw Exception(error);
+    });
   }
 }

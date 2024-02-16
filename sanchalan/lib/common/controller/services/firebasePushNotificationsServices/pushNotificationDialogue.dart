@@ -130,7 +130,12 @@ class PushNotificationDialogue {
                     activeTrackColor: greyShade3,
                     elevationThumb: 2,
                     elevationTrack: 2,
-                    onSwipe: () {},
+                    onSwipe: () {
+                      RideRequestServicesDriver.acceptRideRequest(
+                        rideRequestModel.riderProfile.mobileNumber!,
+                        context,
+                      );
+                    },
                     child: Builder(
                       builder: (context) {
                         return Text(
