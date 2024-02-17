@@ -13,7 +13,7 @@ import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/view/accountScreenDriver/accountScreenDriver.dart';
 import 'package:sanchalan/driver/view/activityScreenDriver/activityScreen.dart';
-import 'package:sanchalan/driver/view/homeScreenDriver/driverHomeScreen.dart';
+import 'package:sanchalan/driver/view/homeScreenDriver/homeScreenBuilder.dart';
 import 'package:sizer/sizer.dart';
 
 class BottomNavBarDriver extends StatefulWidget {
@@ -25,7 +25,7 @@ class BottomNavBarDriver extends StatefulWidget {
 
 class _BottomNavBarDriverState extends State<BottomNavBarDriver> {
   List<Widget> screens = const [
-    HomeScreenDriver(),
+    DriverHomeScreenBuilder(),
     ActivityScreenDriver(),
     AccountScreenDriver(),
   ];

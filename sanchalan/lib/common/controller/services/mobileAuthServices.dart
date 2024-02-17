@@ -9,7 +9,6 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
 import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
-import 'package:sanchalan/common/controller/services/firebasePushNotificationsServices/pushNotificationServices.dart';
 import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
 import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';

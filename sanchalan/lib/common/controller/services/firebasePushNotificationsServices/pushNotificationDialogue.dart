@@ -12,6 +12,7 @@ class PushNotificationDialogue {
       RideRequestModel rideRequestModel, BuildContext context) {
     return showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (context) {
           audioPlayer.setAsset('assets/sounds/alert.mp3');
           audioPlayer.play();
@@ -135,6 +136,15 @@ class PushNotificationDialogue {
                         rideRequestModel.riderProfile.mobileNumber!,
                         context,
                       );
+                      RideRequestServicesDriver.updateRideRequestStatus(
+                        RideRequestServicesDriver.getRideStatus(1),
+                        rideRequestModel.riderProfile.mobileNumber!,
+                      );
+                      RideRequestServicesDriver.updateRideRequestID(
+                        rideRequestModel.riderProfile.mobileNumber!,
+                      );
+                      audioPlayer.stop();
+                      Navigator.pop(context);
                     },
                     child: Builder(
                       builder: (context) {
