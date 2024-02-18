@@ -10,6 +10,7 @@ import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
+import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
 import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/controller/services/mapsProviderDriver.dart';
 import 'package:sanchalan/firebase_options.dart';
@@ -56,6 +57,8 @@ class _SanchalanState extends State<Sanchalan> {
                 create: (_) => BottomNavBarDriverProvider()),
             ChangeNotifierProvider<MapsProviderDriver>(
                 create: (_) => MapsProviderDriver()),
+                ChangeNotifierProvider<RideRequestProviderDriver>(
+                create: (_) => RideRequestProviderDriver()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

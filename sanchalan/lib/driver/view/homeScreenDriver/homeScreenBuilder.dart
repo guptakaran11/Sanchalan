@@ -32,7 +32,9 @@ class _DriverHomeScreenBuilderState extends State<DriverHomeScreenBuilder> {
                 jsonDecode(jsonEncode(event.data!.snapshot.value))
                     as Map<String, dynamic>);
             if (profileData.activateRideRequestID != null) {
-              return const TripScreen();
+              return TripScreen(
+                rideID: profileData.activateRideRequestID!,
+              );
             } else {
               return const HomeScreenDriver();
             }

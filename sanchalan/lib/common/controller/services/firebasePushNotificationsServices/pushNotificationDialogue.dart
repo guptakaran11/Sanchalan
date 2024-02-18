@@ -1,6 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sanchalan/common/controller/services/directionServices.dart';
+import 'package:sanchalan/common/controller/services/locationServices.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
@@ -133,7 +138,41 @@ class PushNotificationDialogue {
                     activeTrackColor: greyShade3,
                     elevationThumb: 2,
                     elevationTrack: 2,
-                    onSwipe: () {
+                    onSwipe: () async {
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .updateRideRequestData(rideRequestModel);
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .updateTripPickupAndDropLocation(
+                            rideRequestModel.pickupLocation,
+                            rideRequestModel.dropLocation,
+                          );
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .createIcons(context);
+                      LatLng currDriverLocation =
+                          await LocationServices.getCurrentlocation();
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .updateRideAcceptLocation(currDriverLocation);
+                      LatLng pickupLocation = LatLng(
+                        rideRequestModel.pickupLocation.latitude!,
+                        rideRequestModel.pickupLocation.longitude!,
+                      );
+                      await DirectionServices.getDirectionDetailsDriver(
+                          currDriverLocation, pickupLocation, context);
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .decodePolyLineAndUpdatePolyLineField();
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .updateUpdateMarkerStatus(true);
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .updateMovingFromCurrentLocationToPickupLocationStatus(
+                              true);
+                      context.read<RideRequestProviderDriver>().updateMarker();
                       RideRequestServicesDriver.acceptRideRequest(
                         rideRequestModel.riderProfile.mobileNumber!,
                         context,
@@ -145,9 +184,7 @@ class PushNotificationDialogue {
                       RideRequestServicesDriver.updateRideRequestID(
                         rideRequestModel.riderProfile.mobileNumber!,
                       );
-                      context
-                          .read<RideRequestProviderDriver>()
-                          .updateRideRequestData(rideRequestModel);
+
                       audioPlayer.stop();
                       Navigator.pop(context);
                     },

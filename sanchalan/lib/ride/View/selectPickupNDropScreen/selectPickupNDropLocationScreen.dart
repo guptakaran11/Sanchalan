@@ -71,7 +71,7 @@ class _PickupAndDropLocationScreenState
       LatLng pickupLocation =
           LatLng(pickupModel.latitude!, pickupModel.longitude!);
       LatLng dropLocation = LatLng(dropModel.latitude!, dropModel.longitude!);
-      await DirectionServices.getDirectionDetails(
+      await DirectionServices.getDirectionDetailsRider(
           pickupLocation, dropLocation, context);
       context.read<RideRequestProvider>().makeFareZero();
       context.read<RideRequestProvider>().createIcons(context);

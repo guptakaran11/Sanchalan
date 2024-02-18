@@ -25,7 +25,7 @@ class RideRequestProvider extends ChangeNotifier {
   BitmapDescriptor? carIconForMap;
   BitmapDescriptor? destinationIconForMap;
   BitmapDescriptor? pickupIconForMap;
-  bool updateMarkerTool = false;
+  bool updateMarkerBool = false;
   PickupNDropLocationModel? dropLocation;
   PickupNDropLocationModel? pickupLocation;
   int sanchalanGoFare = 0;
@@ -97,7 +97,7 @@ class RideRequestProvider extends ChangeNotifier {
   }
 
   updateUpdateMarkerBool(bool newStatus) {
-    updateMarkerTool = newStatus;
+    updateMarkerBool = newStatus;
     notifyListeners();
   }
 
@@ -187,7 +187,7 @@ class RideRequestProvider extends ChangeNotifier {
         dropLocation!.latitude!,
         dropLocation!.longitude!,
       ),
-      icon: pickupIconForMap!,
+      icon: destinationIconForMap!,
     );
     if (fetchNearByDrivers == true) {
       math.Random random = math.Random();
@@ -205,7 +205,7 @@ class RideRequestProvider extends ChangeNotifier {
         riderMarker.add(carMarker);
       }
     }
-    if (updateMarkerTool == true) {
+    if (updateMarkerBool == true) {
       Marker carMarker = Marker(
         markerId: MarkerId(auth.currentUser!.phoneNumber!),
         position: LatLng(
@@ -219,7 +219,7 @@ class RideRequestProvider extends ChangeNotifier {
     riderMarker.add(pickupMarker);
     riderMarker.add(destinationMarker);
     notifyListeners();
-    if (updateMarkerTool == true) {
+    if (updateMarkerBool == true) {
       await Future.delayed(
         const Duration(
           seconds: 5,
