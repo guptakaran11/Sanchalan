@@ -11,7 +11,7 @@ import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
-import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServices.dart';
+import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServicesDriver.dart';
 import 'package:sizer/sizer.dart';
 
 class PushNotificationDialogue {

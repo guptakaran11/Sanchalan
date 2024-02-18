@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -8,11 +8,13 @@ import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
+import 'package:sanchalan/common/controller/services/directionServices.dart';
+import 'package:sanchalan/common/controller/services/locationServices.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
-import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServices.dart';
+import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServicesDriver.dart';
 import 'package:sizer/sizer.dart';
 
 class TripScreen extends StatefulWidget {
@@ -53,7 +55,7 @@ class _TripScreenState extends State<TripScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size(100.w, 10.h),
+          preferredSize: Size(100.w, 14.h),
           child: Padding(
             padding: EdgeInsets.symmetric(
               vertical: 1.h,
@@ -78,39 +80,89 @@ class _TripScreenState extends State<TripScreen> {
                           as Map<String, dynamic>);
                   if (rideRequestData.rideStatus ==
                       RideRequestServicesDriver.getRideStatus(1)) {
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10.w,
-                      ),
-                      child: PinCodeTextField(
-                        appContext: context,
-                        length: 4,
-                        obscureText: false,
-                        animationType: AnimationType.fade,
-                        textStyle: AppTextStyles.body14,
-                        pinTheme: PinTheme(
-                          shape: PinCodeFieldShape.box,
-                          borderRadius: BorderRadius.circular(10.sp),
-                          fieldHeight: 50,
-                          fieldWidth: 50,
-                          activeFillColor: white,
-                          inactiveColor: greyShade3,
-                          inactiveFillColor: greyShade3,
-                          selectedFillColor: white,
-                          selectedColor: black,
-                          activeColor: black,
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          'Enter OTP to Start Trip',
+                          style: AppTextStyles.body16Bold,
                         ),
-                        animationDuration: const Duration(milliseconds: 300),
-                        backgroundColor: transparent,
-                        enableActiveFill: true,
-                        errorAnimationController: errorController,
-                        controller: otpController,
-                        onCompleted: (value) {},
-                        onChanged: (value) {},
-                        beforeTextPaste: (text) {
-                          return true;
-                        },
-                      ),
+                        PinCodeTextField(
+                          appContext: context,
+                          length: 4,
+                          obscureText: false,
+                          animationType: AnimationType.fade,
+                          textStyle: AppTextStyles.body14,
+                          pinTheme: PinTheme(
+                            shape: PinCodeFieldShape.box,
+                            borderRadius: BorderRadius.circular(10.sp),
+                            fieldHeight: 50,
+                            fieldWidth: 50,
+                            activeFillColor: white,
+                            inactiveColor: greyShade3,
+                            inactiveFillColor: greyShade3,
+                            selectedFillColor: white,
+                            selectedColor: black,
+                            activeColor: black,
+                          ),
+                          animationDuration: const Duration(milliseconds: 300),
+                          backgroundColor: transparent,
+                          enableActiveFill: true,
+                          errorAnimationController: errorController,
+                          controller: otpController,
+                          onCompleted: (value) async {
+                            if (otpController.text.trim() ==
+                                context
+                                    .read<RideRequestProviderDriver>()
+                                    .rideRequestData!
+                                    .otp) {
+                              LatLng pickupLocation =
+                                  await LocationServices.getCurrentlocation();
+                              LatLng dropLocation = LatLng(
+                                context
+                                    .read<RideRequestProviderDriver>()
+                                    .dropLocation!
+                                    .latitude!,
+                                context
+                                    .read<RideRequestProviderDriver>()
+                                    .dropLocation!
+                                    .longitude!,
+                              );
+                              await DirectionServices.getDirectionDetailsDriver(
+                                pickupLocation,
+                                dropLocation,
+                                context,
+                              );
+                              context
+                                  .read<RideRequestProviderDriver>()
+                                  .decodePolyLineAndUpdatePolyLineField();
+                              context
+                                  .read<RideRequestProviderDriver>()
+                                  .updateUpdateMarkerStatus(true);
+                              context
+                                  .read<RideRequestProviderDriver>()
+                                  .updateMovingFromCurrentLocationToPickupLocationStatus(
+                                      false);
+                              context
+                                  .read<RideRequestProviderDriver>()
+                                  .updateMarker();
+
+                              RideRequestServicesDriver.updateRideRequestStatus(
+                                RideRequestServicesDriver.getRideStatus(2),
+                                context
+                                    .read<RideRequestProviderDriver>()
+                                    .rideRequestData!
+                                    .riderProfile
+                                    .mobileNumber!,
+                              );
+                            }
+                          },
+                          onChanged: (value) {},
+                          beforeTextPaste: (text) {
+                            return true;
+                          },
+                        ),
+                      ],
                     );
                   } else {
                     return SwipeButton(

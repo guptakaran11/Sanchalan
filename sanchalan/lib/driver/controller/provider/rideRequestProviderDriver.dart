@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -97,7 +99,9 @@ class RideRequestProviderDriver extends ChangeNotifier {
   }
 
   updateMarker() async {
-    driverMarker.clear();
+    driverMarker = <Marker>{};
+    log('Driver Marker Is Empty');
+    log(driverMarker.toString());
     Marker pickupMarker = Marker(
       markerId: const MarkerId('PickupMarker'),
       position: movingFromCurrentLocationTopickupLocation
