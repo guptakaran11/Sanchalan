@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:provider/provider.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
+import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
 import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServices.dart';
 import 'package:sizer/sizer.dart';
 
@@ -143,6 +145,9 @@ class PushNotificationDialogue {
                       RideRequestServicesDriver.updateRideRequestID(
                         rideRequestModel.riderProfile.mobileNumber!,
                       );
+                      context
+                          .read<RideRequestProviderDriver>()
+                          .updateRideRequestData(rideRequestModel);
                       audioPlayer.stop();
                       Navigator.pop(context);
                     },

@@ -34,7 +34,7 @@ class _BookARideScreenState extends State<BookARideScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<RideRequestProvider>().updateFetchNearByDrivers(true);
-      context.read<RideRequestProvider>().updateUpdateMarkerBool(true);
+      // context.read<RideRequestProvider>().updateUpdateMarkerBool(true);
       PickupNDropLocationModel pickupModel =
           context.read<RideRequestProvider>().pickupLocation!;
       LatLng pickupLocation =

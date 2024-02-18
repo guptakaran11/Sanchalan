@@ -52,6 +52,7 @@ class _HomeScreenDriverState extends State<HomeScreenDriver> {
                     ),
                   );
                 }
+                log(event.data.toString());
                 if (event.data == null) {
                   return SwipeButton(
                     thumbPadding: EdgeInsets.all(1.w),
