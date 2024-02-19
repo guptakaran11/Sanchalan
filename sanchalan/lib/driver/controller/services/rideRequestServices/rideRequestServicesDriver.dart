@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:convert';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -105,5 +103,10 @@ class RideRequestServicesDriver {
       );
       throw Exception(error);
     });
+  }
+
+  static endRide(String rideID) async {
+    DatabaseReference riderRef =
+        FirebaseDatabase.instance.ref().child('RideHistoryRider/$rideID/');
   }
 }
