@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +9,8 @@ import 'package:sanchalan/common/controller/services/toastService.dart';
 import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/constants.dart';
+import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
+import 'package:uuid/uuid.dart';
 
 class RideRequestServicesDriver {
   static checkRideAvailability(BuildContext context, String rideID) async {
@@ -105,8 +108,45 @@ class RideRequestServicesDriver {
     });
   }
 
-  static endRide(String rideID) async {
-    DatabaseReference riderRef =
-        FirebaseDatabase.instance.ref().child('RideHistoryRider/$rideID/');
+  static endRide(String rideID, BuildContext context) async {
+    try {
+      Uuid uuid = const Uuid();
+      String uniqueID = uuid.v1().toString();
+      DatabaseReference rideRef = FirebaseDatabase.instance
+          .ref()
+          .child('RideRequest/$rideID/rideEndTime');
+      DatabaseReference rideRefFetchData =
+          FirebaseDatabase.instance.ref().child('RideRequest/$rideID');
+      DatabaseReference riderRef = FirebaseDatabase.instance
+          .ref()
+          .child('RideHistoryRider/$rideID/$uniqueID');
+      DatabaseReference driverProfileRef = FirebaseDatabase.instance
+          .ref()
+          .child('User/${auth.currentUser!.phoneNumber}/activateRideRequestID');
+      DatabaseReference driverRef = FirebaseDatabase.instance
+          .ref()
+          .child('RideHistoryDriver/$rideID/$uniqueID');
+      context.read<RideRequestProviderDriver>().updateUpdateMarkerStatus(false);
+      await rideRef.set(DateTime.now().microsecondsSinceEpoch);
+      final snapshot = await rideRefFetchData.get();
+      RideRequestModel rideData = RideRequestModel.fromMap(
+          jsonDecode(jsonEncode(snapshot.value)) as Map<String, dynamic>);
+      await RideRequestServicesDriver.updateRideRequestStatus(
+        RideRequestServicesDriver.getRideStatus(3),
+        rideID,
+      );
+      await riderRef.set(rideData.toMap());
+      await driverRef.set(rideData.toMap());
+      await rideRefFetchData.remove();
+      await driverProfileRef.remove();
+      ToastService.sendScaffoldAlert(
+        msg: 'Trip Ended!!! You earned ${int.parse(rideData.fare) * 0.9}',
+        toastStatus: 'SUCCESS',
+        context: context,
+      );
+    } catch (e) {
+      log(e.toString());
+      throw Exception(e);
+    }
   }
 }

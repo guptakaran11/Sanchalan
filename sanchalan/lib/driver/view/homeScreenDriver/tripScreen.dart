@@ -18,10 +18,7 @@ import 'package:sanchalan/driver/controller/services/rideRequestServices/rideReq
 import 'package:sizer/sizer.dart';
 
 class TripScreen extends StatefulWidget {
-  const TripScreen({
-    super.key,
-    required this.rideID,
-  });
+  const TripScreen({super.key, required this.rideID});
   final String rideID;
 
   @override
@@ -31,7 +28,7 @@ class TripScreen extends StatefulWidget {
 class _TripScreenState extends State<TripScreen> {
   Completer<GoogleMapController> mapControllerDriver = Completer();
   GoogleMapController? mapController;
-  String? rideID;
+  // String? rideID;
   TextEditingController otpController = TextEditingController();
   StreamController<ErrorAnimationType> errorController =
       StreamController<ErrorAnimationType>();
@@ -39,13 +36,13 @@ class _TripScreenState extends State<TripScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      rideID = context
-          .read<RideRequestProviderDriver>()
-          .rideRequestData!
-          .riderProfile
-          .mobileNumber!;
-      log('The RideID is');
-      log(rideID.toString());
+      // rideID = context
+      //     .read<RideRequestProviderDriver>()
+      //     .rideRequestData!
+      //     .riderProfile
+      //     .mobileNumber!;
+      // log('The RideID is');
+      // log(rideID.toString());
       // LatLng currLocation = await LocationServices.getCurrentlocation();
     });
   }
@@ -177,7 +174,12 @@ class _TripScreenState extends State<TripScreen> {
                       activeTrackColor: greyShade3,
                       elevationThumb: 2,
                       elevationTrack: 2,
-                      onSwipe: () {},
+                      onSwipe: () async {
+                        await RideRequestServicesDriver.endRide(
+                          widget.rideID,
+                          context,
+                        );
+                      },
                       child: Builder(
                         builder: (context) {
                           return Text(
