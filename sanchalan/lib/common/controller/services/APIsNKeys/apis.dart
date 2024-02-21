@@ -11,4 +11,6 @@ class APIs {
 
   static getLatLngFromPlaceIDAPI(String placeId) =>
       'https://maps.googleapis.com/maps/api/place/details/json?placeid= $placeId&Key= $mapsPlatformcredential';
+
+  static pushNotificationAPI() => 'https://fcm.googleapis.com/fcm/send';  // it is written same as in playlist so correct it form the post api v60
 }
