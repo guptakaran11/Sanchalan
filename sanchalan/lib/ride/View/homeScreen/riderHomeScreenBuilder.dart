@@ -1,10 +1,9 @@
-import 'dart:convert';
-import 'dart:developer';
+// ignore_for_file: file_names
 
+import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:sanchalan/common/model/profileModelData.dart';
+import 'package:flutter/material.dart';
 import 'package:sanchalan/constant/constants.dart';
-import 'package:sanchalan/driver/view/homeScreenDriver/tripScreen.dart';
 import 'package:sanchalan/ride/View/bookARideScreen/bookARideScreen.dart';
 import 'package:sanchalan/ride/View/homeScreen/riderHomeSceen.dart';
 
