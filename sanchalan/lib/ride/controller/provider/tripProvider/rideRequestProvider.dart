@@ -35,6 +35,7 @@ class RideRequestProvider extends ChangeNotifier {
   // Fetch Nearby Drivers List
   bool fetchNearByDrivers = false;
   List<NearByDriversModel> nearbyDrivers = [];
+  bool placedRideRequest = false;
 
   makeFareZero() {
     sanchalanGoFare = 0;
@@ -176,7 +177,7 @@ class RideRequestProvider extends ChangeNotifier {
     Marker pickupMarker = Marker(
       markerId: const MarkerId('PickupMarker'),
       position: LatLng(
-        pickupLocation!.latitude!,  
+        pickupLocation!.latitude!,
         pickupLocation!.longitude!,
       ),
       icon: pickupIconForMap!,
