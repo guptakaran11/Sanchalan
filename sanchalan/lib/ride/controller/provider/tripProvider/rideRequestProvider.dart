@@ -37,6 +37,11 @@ class RideRequestProvider extends ChangeNotifier {
   List<NearByDriversModel> nearbyDrivers = [];
   bool placedRideRequest = false;
 
+  updatePlacedRideRequestStatus(bool newStatus) {
+    placedRideRequest = newStatus;
+    notifyListeners();
+  }
+
   makeFareZero() {
     sanchalanGoFare = 0;
     sanchalanGoSedanFare = 0;

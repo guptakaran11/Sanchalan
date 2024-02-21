@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,9 @@ class _RiderHomeScreenBuilderState extends State<RiderHomeScreenBuilder> {
           if (event.connectionState == ConnectionState.waiting) {
             return const RiderHomeScreen();
           }
-          if (event.data != null) {
+          if (event.data!.snapshot.value != null) {
+            log('The Data is');
+            log(event.data!.snapshot.value.toString());
             return const BookARideScreen();
           } else {
             return const RiderHomeScreen();

@@ -107,7 +107,9 @@ class _BookARideScreenState extends State<BookARideScreen> {
               if (rideRequestProvider.placedRideRequest == false) {
                 return Builder(builder: (context) {
                   if (bookRideButtonPressed == true) {
-                    return CancelRideRequest(controller: controller,);
+                    return CancelRideRequest(
+                      controller: controller,
+                    );
                   } else {
                     return Consumer<RideRequestProvider>(
                         builder: (context, rideRequestProvider, child) {
@@ -239,6 +241,9 @@ class _BookARideScreenState extends State<BookARideScreen> {
                             ),
                             ElevatedButtonCommon(
                               onPressed: () {
+                                context
+                                    .read<RideRequestProvider>()
+                                    .updatePlacedRideRequestStatus(true);
                                 setState(() {
                                   bookRideButtonPressed = true;
                                 });
@@ -308,7 +313,9 @@ class _BookARideScreenState extends State<BookARideScreen> {
                           jsonDecode(jsonEncode(event.data!.snapshot.value))
                               as Map<String, dynamic>);
                       if (rideData.driverProfile == null) {
-                        return CancelRideRequest(controller: controller,);
+                        return CancelRideRequest(
+                          controller: controller,
+                        );
                       }
                       if (rideData.rideStatus ==
                           RideRequestServices.getRideStatus(0)) {
@@ -329,7 +336,9 @@ class _BookARideScreenState extends State<BookARideScreen> {
                         );
                       }
                     }
-                    return CancelRideRequest(controller: controller,);
+                    return CancelRideRequest(
+                      controller: controller,
+                    );
                   },
                 );
               }

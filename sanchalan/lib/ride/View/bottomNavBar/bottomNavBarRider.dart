@@ -8,10 +8,10 @@ import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dar
 import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
+import 'package:sanchalan/ride/View/homeScreen/riderHomeScreenBuilder.dart';
 import 'package:sanchalan/ride/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
 import 'package:sanchalan/ride/View/account/accountScreenRider.dart';
 import 'package:sanchalan/ride/View/activity/activityScreen.dart';
-import 'package:sanchalan/ride/View/homeScreen/riderHomeSceen.dart';
 import 'package:sanchalan/ride/View/serviceScreen/serviceScreen.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,7 +24,7 @@ class BottomNavBarRider extends StatefulWidget {
 
 class _BottomNavBarRiderState extends State<BottomNavBarRider> {
   List<Widget> screens = const [
-    RiderHomeScreen(),
+    RiderHomeScreenBuilder(),
     ServiceScreenRider(),
     ActivityScreenRider(),
     AccountScreenRider(),
