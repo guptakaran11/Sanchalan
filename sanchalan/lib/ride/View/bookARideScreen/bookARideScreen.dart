@@ -571,20 +571,25 @@ class CancelRideRequest extends StatelessWidget {
         SizedBox(
           height: 5.h,
         ),
-        Container(
-          height: 8.h,
-          width: 8.h,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: black38,
-                width: 2,
-              ),
-              color: white),
-          child: Icon(
-            CupertinoIcons.xmark,
-            color: black,
-            size: 6.h,
+        InkWell(
+          onTap: () async {
+            await RideRequestServices.cancelRideRequest(context);
+          },
+          child: Container(
+            height: 8.h,
+            width: 8.h,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: black38,
+                  width: 2,
+                ),
+                color: white),
+            child: Icon(
+              CupertinoIcons.xmark,
+              color: black,
+              size: 6.h,
+            ),
           ),
         ),
         SizedBox(
