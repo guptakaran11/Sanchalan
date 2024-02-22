@@ -1,11 +1,15 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:sanchalan/common/controller/services/APIsNKeys/apis.dart';
+import 'package:sanchalan/common/controller/services/APIsNKeys/keys.dart';
 import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/common/model/rideRequestModel.dart';
 import 'package:sanchalan/constant/constants.dart';
+import 'package:http/http.dart' as http;
 
 import 'pushNotificationDialogue.dart';
 
@@ -109,5 +113,41 @@ class PushNotificationServices {
     initializeFirebaseMessaging(profileData, context);
     getToken(profileData);
     subscribeToNotification(profileData);
+  }
+
+  static sendRideRequestToNearByDrivers(String driveFCMToken) async {
+    try {
+      final api = Uri.parse(APIs.pushNotificationAPI());
+      var body = jsonEncode({
+        "to": driveFCMToken,
+        "notification": {
+          "body": "New Ride Request In your Location",
+          "title": "Ride Request"
+        },
+        "data": {
+          "rideRequestID": auth.currentUser!.phoneNumber!,
+        }
+      });
+      var response = await http
+          .post(api,
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorizatin': 'key=$fcmServerKey'
+              },
+              body: body)
+          .then((value) {
+        log('Successfully send Ride Request');
+      }).timeout(
+        const Duration(seconds: 60),
+        onTimeout: () {
+          throw TimeoutException('Connection Timed Out');
+        },
+      ).onError((error, stackTrace) {
+        throw Exception(error);
+      });
+    } catch (e) {
+      log(e.toString());
+      throw Exception(e);
+    }
   }
 }

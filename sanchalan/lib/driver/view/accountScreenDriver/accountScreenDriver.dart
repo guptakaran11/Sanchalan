@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
+import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sizer/sizer.dart';
@@ -192,23 +193,30 @@ class _AccountScreenDriverState extends State<AccountScreenDriver> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.symmetric(vertical: 2.h),
-                  child: Row(
-                    children: [
-                      Icon(
-                        accountButtons[index][0],
-                        color: black,
-                        size: 3.h,
-                      ),
-                      SizedBox(
-                        width: 7.w,
-                      ),
-                      Text(
-                        accountButtons[index][1],
-                        style: AppTextStyles.small12,
-                      ),
-                    ],
+                return InkWell(
+                  onTap: () {
+                    if (index == (accountButtons.length - 1)) {
+                      MobileAuthServices.signOut(context);
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 2.h),
+                    child: Row(
+                      children: [
+                        Icon(
+                          accountButtons[index][0],
+                          color: black,
+                          size: 3.h,
+                        ),
+                        SizedBox(
+                          width: 7.w,
+                        ),
+                        Text(
+                          accountButtons[index][1],
+                          style: AppTextStyles.small12,
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

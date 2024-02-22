@@ -6,8 +6,11 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sanchalan/common/controller/services/firebasePushNotificationsServices/pushNotificationServices.dart';
+import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
 import 'package:sanchalan/common/model/directionModel.dart';
 import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
+import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/ride/model/nearbyDriversModel.dart';
@@ -198,6 +201,11 @@ class RideRequestProvider extends ChangeNotifier {
     if (fetchNearByDrivers == true) {
       math.Random random = math.Random();
       for (var driver in nearbyDrivers) {
+        ProfileDataModel driverProfileData =
+            await ProfileDataCRUDServices.getProfileDataFromRealTimeDatabase(
+                driver.driverID);
+        await PushNotificationServices.sendRideRequestToNearByDrivers(
+            driverProfileData.cloudMessagingToken!);
         double rotation = random.nextInt(360).toDouble();
         Marker carMarker = Marker(
           markerId: MarkerId(driver.driverID),

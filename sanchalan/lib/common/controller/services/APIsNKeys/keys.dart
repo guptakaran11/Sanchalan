@@ -1,2 +1,4 @@
-String mapsPlatformcredential =
-    'AIzaSyCdTE527oIcl9rHDLZYqiUP5LXaomYa_ds'; 
+String mapsPlatformcredential = 'AIzaSyCdTE527oIcl9rHDLZYqiUP5LXaomYa_ds';
+
+String fcmServerKey =
+    'AAAAM1pWJKA:APA91bEFgXZ6ld9YMElDzB502vbTqbCd9JxelXmBbIgb0tNNyWRDgl8Er0JT4pkDXE2JCzkJOWaItVs7k9P4q7dADWvpyIxzzQgjwEvlfwR2uNSAlFjiOqYY72j3HyX4BOgrYcD0wcIZ';

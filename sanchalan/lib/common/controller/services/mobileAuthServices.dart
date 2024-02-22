@@ -131,4 +131,16 @@ class MobileAuthServices {
           (route) => false);
     }
   }
+
+  static signOut(BuildContext context) {
+    auth.signOut();
+    Navigator.of(context, rootNavigator: true).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return const SignInLogic();
+        },
+      ),
+      (_) => false,
+    );
+  }
 }
