@@ -201,18 +201,13 @@ class RideRequestProvider extends ChangeNotifier {
     if (fetchNearByDrivers == true) {
       math.Random random = math.Random();
       for (var driver in nearbyDrivers) {
-        ProfileDataModel driverProfileData =
-            await ProfileDataCRUDServices.getProfileDataFromRealTimeDatabase(
-                driver.driverID);
-        await PushNotificationServices.sendRideRequestToNearByDrivers(
-            driverProfileData.cloudMessagingToken!);
         double rotation = random.nextInt(360).toDouble();
         Marker carMarker = Marker(
           markerId: MarkerId(driver.driverID),
           rotation: rotation,
           position: LatLng(
-            pickupLocation!.latitude!,
-            pickupLocation!.longitude!,
+            driver.latitude,
+            driver.longitude,
           ),
           icon: carIconForMap!,
         );
@@ -246,6 +241,16 @@ class RideRequestProvider extends ChangeNotifier {
   }
 
 // ! Nearby Drivers Functions
+  sendPushNotificationToNearByDrivers() async {
+    for (var driver in nearbyDrivers) {
+      ProfileDataModel driverProfileData =
+          await ProfileDataCRUDServices.getProfileDataFromRealTimeDatabase(
+              driver.driverID);
+      await PushNotificationServices.sendRideRequestToNearByDrivers(
+          driverProfileData.cloudMessagingToken!);
+    }
+  }
+
   updateFetchNearByDrivers(bool newStatus) {
     fetchNearByDrivers == newStatus;
     notifyListeners();

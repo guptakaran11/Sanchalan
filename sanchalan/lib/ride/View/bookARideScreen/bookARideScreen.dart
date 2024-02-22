@@ -266,6 +266,9 @@ class _BookARideScreenState extends State<BookARideScreen> {
                                 );
                                 RideRequestServices.createNewRideRequest(
                                     model, context);
+                                context
+                                    .read<RideRequestProvider>()
+                                    .sendPushNotificationToNearByDrivers();
                               },
                               backgroundColor: black,
                               height: 6.h,

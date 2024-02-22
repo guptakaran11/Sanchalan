@@ -6,11 +6,11 @@ import 'package:sanchalan/constant/constants.dart';
 
 class RideRequestServices {
   static createNewRideRequest(
-      RideRequestModel rideRequestModel, BuildContext context) {
+      RideRequestModel rideRequestModel, BuildContext context) async {
     DatabaseReference ref = FirebaseDatabase.instance
         .ref()
         .child('RideRequest/${auth.currentUser!.phoneNumber}');
-    ref.set(rideRequestModel.toMap()).then((value) {
+    await ref.set(rideRequestModel.toMap()).then((value) {
       ToastService.sendScaffoldAlert(
         msg: 'Ride Request Registered Successful',
         toastStatus: 'SUCCESS',
