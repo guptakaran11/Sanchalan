@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
