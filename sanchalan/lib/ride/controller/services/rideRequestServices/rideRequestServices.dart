@@ -45,5 +45,6 @@ class RideRequestServices {
         .remove()
         .then((value) {});
     Navigator.pop(context);
+    
   }
 }

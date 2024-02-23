@@ -1,7 +1,5 @@
 // ignore_for_file: file_names
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
