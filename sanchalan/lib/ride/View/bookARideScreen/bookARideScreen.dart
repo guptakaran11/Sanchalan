@@ -463,8 +463,52 @@ class RideData extends StatelessWidget {
             ),
           ],
         ),
+        SizedBox(
+          height: 2.h,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'OTP\t\t',
+                    style: AppTextStyles.body16Bold.copyWith(color: black87),
+                  ),
+                  TextSpan(
+                    text: rideData.otp,
+                    style: AppTextStyles.body18Bold,
+                  ),
+                ],
+              ),
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Fare\t\t',
+                    style: AppTextStyles.body16Bold.copyWith(color: black87),
+                  ),
+                  TextSpan(
+                    text: rideData.fare,
+                    style: AppTextStyles.body18Bold,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 3.h,
+        ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
               'Pickup Location',
@@ -487,18 +531,21 @@ class RideData extends StatelessWidget {
             ),
           ],
         ),
+        SizedBox(
+          height: 2.h,
+        ),
         Row(
           children: [
             Text(
               'Car Type',
-              style: AppTextStyles.body16Bold,
+              style: AppTextStyles.body16,
             ),
             SizedBox(
               width: 3.w,
             ),
             Text(
               rideData.carTrpe,
-              style: AppTextStyles.body14,
+              style: AppTextStyles.body16Bold,
             ),
             Builder(builder: (context) {
               if (rideData.carTrpe == 'Sanchalan Go') {
@@ -536,9 +583,19 @@ class RideData extends StatelessWidget {
           '${rideData.driverProfile!.vehicleBrandName} ${rideData.driverProfile!.vehicleModel}',
           style: AppTextStyles.body16Bold,
         ),
-        Text(
-          rideData.driverProfile!.vehicleRegistrationNumber!,
-          style: AppTextStyles.body16Bold,
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'Registeration No. ',
+                style: AppTextStyles.body16,
+              ),
+              TextSpan(
+                text: rideData.driverProfile!.vehicleRegistrationNumber!,
+                style: AppTextStyles.body16Bold,
+              ),
+            ],
+          ),
         ),
       ],
     );
