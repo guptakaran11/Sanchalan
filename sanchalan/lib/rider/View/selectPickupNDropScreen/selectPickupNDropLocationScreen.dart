@@ -14,8 +14,8 @@ import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/common/model/searchedAddressModel.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
-import 'package:sanchalan/ride/View/bookARideScreen/bookARideScreen.dart';
-import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
+import 'package:sanchalan/rider/View/bookARideScreen/bookARideScreen.dart';
+import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
 import 'package:sizer/sizer.dart';
 
 class PickupAndDropLocationScreen extends StatefulWidget {

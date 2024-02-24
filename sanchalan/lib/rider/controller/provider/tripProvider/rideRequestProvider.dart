@@ -13,7 +13,7 @@ import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
-import 'package:sanchalan/ride/model/nearbyDriversModel.dart';
+import 'package:sanchalan/rider/model/nearbyDriversModel.dart';
 
 class RideRequestProvider extends ChangeNotifier {
   CameraPosition initialCameraPosition = const CameraPosition(

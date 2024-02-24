@@ -11,7 +11,7 @@ import 'package:sanchalan/common/controller/services/APIsNKeys/apis.dart';
 import 'package:http/http.dart' as http;
 import 'package:sanchalan/common/model/directionModel.dart';
 import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
-import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
+import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
 
 class DirectionServices {
   static Future getDirectionDetailsRider(

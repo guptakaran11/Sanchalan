@@ -13,8 +13,8 @@ import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.d
 import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/controller/services/mapsProviderDriver.dart';
 import 'package:sanchalan/firebase_options.dart';
-import 'package:sanchalan/ride/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
-import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
+import 'package:sanchalan/rider/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
+import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
 import 'package:sizer/sizer.dart';
 
 Future main() async {

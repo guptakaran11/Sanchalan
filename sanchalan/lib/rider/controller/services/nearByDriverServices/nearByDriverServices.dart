@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:sanchalan/ride/controller/provider/tripProvider/rideRequestProvider.dart';
-import 'package:sanchalan/ride/model/nearbyDriversModel.dart';
+import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
+import 'package:sanchalan/rider/model/nearbyDriversModel.dart';
 
 class NearByDriverServices {
   static getNearByDriver(LatLng pickupLocation, BuildContext context) {

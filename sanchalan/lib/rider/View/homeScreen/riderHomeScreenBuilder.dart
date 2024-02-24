@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:sanchalan/constant/constants.dart';
-import 'package:sanchalan/ride/View/bookARideScreen/bookARideScreen.dart';
-import 'package:sanchalan/ride/View/homeScreen/riderHomeSceen.dart';
+import 'package:sanchalan/rider/View/bookARideScreen/bookARideScreen.dart';
+import 'package:sanchalan/rider/View/homeScreen/riderHomeSceen.dart';
 
 class RiderHomeScreenBuilder extends StatefulWidget {
   const RiderHomeScreenBuilder({super.key});

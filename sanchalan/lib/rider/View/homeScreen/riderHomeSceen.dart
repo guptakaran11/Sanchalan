@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
-import 'package:sanchalan/ride/View/selectPickupNDropScreen/selectPickupNDropLocationScreen.dart';
+import 'package:sanchalan/rider/View/selectPickupNDropScreen/selectPickupNDropLocationScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class RiderHomeScreen extends StatefulWidget {

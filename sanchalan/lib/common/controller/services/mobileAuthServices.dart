@@ -16,7 +16,7 @@ import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/driver/view/bottomNavBarDriver/bottomNavBarDriver.dart';
-import 'package:sanchalan/ride/View/bottomNavBar/bottomNavBarRider.dart';
+import 'package:sanchalan/rider/View/bottomNavBar/bottomNavBarRider.dart';
 
 class MobileAuthServices {
   static receiveOTP(

@@ -8,11 +8,11 @@ import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dar
 import 'package:sanchalan/common/model/profileModelData.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
-import 'package:sanchalan/ride/View/homeScreen/riderHomeScreenBuilder.dart';
-import 'package:sanchalan/ride/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
-import 'package:sanchalan/ride/View/account/accountScreenRider.dart';
-import 'package:sanchalan/ride/View/activity/activityScreen.dart';
-import 'package:sanchalan/ride/View/serviceScreen/serviceScreen.dart';
+import 'package:sanchalan/rider/View/homeScreen/riderHomeScreenBuilder.dart';
+import 'package:sanchalan/rider/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
+import 'package:sanchalan/rider/View/account/accountScreenRider.dart';
+import 'package:sanchalan/rider/View/activity/activityScreen.dart';
+import 'package:sanchalan/rider/View/serviceScreen/serviceScreen.dart';
 import 'package:sizer/sizer.dart';
 
 class BottomNavBarRider extends StatefulWidget {
