@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sanchalan/common/controller/services/firebasePushNotificationsServices/pushNotificationServices.dart';
+import 'package:sanchalan/common/controller/services/locationServices.dart';
 import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
 import 'package:sanchalan/common/model/directionModel.dart';
 import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
@@ -181,7 +182,7 @@ class RideRequestProvider extends ChangeNotifier {
   }
 
   updateMarker() async {
-    riderMarker.clear();
+    riderMarker = Set<Marker>();
     Marker pickupMarker = Marker(
       markerId: const MarkerId('PickupMarker'),
       position: LatLng(
@@ -198,6 +199,7 @@ class RideRequestProvider extends ChangeNotifier {
       ),
       icon: destinationIconForMap!,
     );
+
     if (fetchNearByDrivers == true) {
       math.Random random = math.Random();
       for (var driver in nearbyDrivers) {
@@ -215,11 +217,12 @@ class RideRequestProvider extends ChangeNotifier {
       }
     }
     if (updateMarkerBool == true) {
+      LatLng currLocation = await LocationServices.getCurrentlocation();
       Marker carMarker = Marker(
         markerId: MarkerId(auth.currentUser!.phoneNumber!),
         position: LatLng(
-          pickupLocation!.latitude!,
-          pickupLocation!.longitude!,
+          currLocation.latitude,
+          currLocation.longitude,
         ),
         icon: carIconForMap!,
       );

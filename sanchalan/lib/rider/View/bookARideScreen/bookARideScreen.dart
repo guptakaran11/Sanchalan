@@ -133,6 +133,13 @@ class _BookARideScreenState extends State<BookARideScreen> {
                           controller: controller,
                         );
                       } else {
+                        if (rideRequestProvider.updateMarkerBool == false) {
+                          rideRequestProvider.updateUpdateMarkerBool(true);
+                          rideRequestProvider.updateMarker();
+                        }
+                        if (rideRequestProvider.fetchNearByDrivers == true) {
+                          rideRequestProvider.updateFetchNearByDrivers(false);
+                        }
                         return RideData(
                           rideData: rideData,
                           controller: controller,
