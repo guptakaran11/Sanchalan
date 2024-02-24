@@ -105,194 +105,7 @@ class _BookARideScreenState extends State<BookARideScreen> {
           return Consumer<RideRequestProvider>(
             builder: (context, rideRequestProvider, child) {
               if (rideRequestProvider.placedRideRequest == false) {
-                return Builder(builder: (context) {
-                  if (bookRideButtonPressed == true) {
-                    return CancelRideRequest(
-                      controller: controller,
-                    );
-                  } else {
-                    return Consumer<RideRequestProvider>(
-                        builder: (context, rideRequestProvider, child) {
-                      if ((rideRequestProvider.sanchalanGoFare == 0) &&
-                          (rideRequestProvider.sanchalanGoSedanFare == 0) &&
-                          (rideRequestProvider.sanchalanPremierFare == 0) &&
-                          (rideRequestProvider.sanchalanPremierFare == 0)) {
-                        return Center(
-                          child: CircularProgressIndicator(
-                            color: black,
-                          ),
-                        );
-                      } else {
-                        return ListView(
-                          controller: controller,
-                          shrinkWrap: true,
-                          physics: const BouncingScrollPhysics(),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 3.w, vertical: 2.h),
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 1.h,
-                                  width: 20.w,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10.sp),
-                                    color: greyShade3,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            ListView.builder(
-                              itemCount: rideList.length,
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      selectedCarType = index;
-                                    });
-                                  },
-                                  child: Container(
-                                    margin:
-                                        EdgeInsets.symmetric(vertical: 0.5.h),
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 1.h,
-                                      horizontal: 3.w,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.sp),
-                                      border: Border.all(
-                                        color: index == selectedCarType
-                                            ? black
-                                            : transparent,
-                                        width: 2,
-                                      ),
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          height: 8.h,
-                                          width: 8.h,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(8.sp),
-                                            border: Border.all(color: black38),
-                                            color: white,
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                rideList[index][0],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 3.w,
-                                        ),
-                                        Expanded(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                getCarType(index),
-                                                style: AppTextStyles.body14Bold,
-                                              ),
-                                              SizedBox(
-                                                width: 2.w,
-                                              ),
-                                              Icon(
-                                                Icons.person,
-                                                color: black,
-                                              ),
-                                              Text(rideList[index][2]),
-                                            ],
-                                          ),
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              '₹ ${getFare(index).toString()}',
-                                              style: AppTextStyles.body14Bold,
-                                            ),
-                                            Text(
-                                              (getFare(index) * 1.15)
-                                                  .round()
-                                                  .toString(),
-                                              style: AppTextStyles.small12
-                                                  .copyWith(
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                                color: grey,
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                            SizedBox(
-                              height: 1.h,
-                            ),
-                            ElevatedButtonCommon(
-                              onPressed: () {
-                                context
-                                    .read<RideRequestProvider>()
-                                    .updatePlacedRideRequestStatus(true);
-                                setState(() {
-                                  bookRideButtonPressed = true;
-                                });
-                                RideRequestModel model = RideRequestModel(
-                                  rideCreatTime: DateTime.now(),
-                                  riderProfile: context
-                                      .read<ProfileDataProvider>()
-                                      .profileData!,
-                                  pickupLocation: context
-                                      .read<RideRequestProvider>()
-                                      .pickupLocation!,
-                                  dropLocation: context
-                                      .read<RideRequestProvider>()
-                                      .dropLocation!,
-                                  fare: getFare(selectedCarType).toString(),
-                                  carTrpe: getCarType(selectedCarType),
-                                  rideStatus:
-                                      RideRequestServices.getRideStatus(0),
-                                  otp: math.Random().nextInt(9999).toString(),
-                                );
-                                RideRequestServices.createNewRideRequest(
-                                    model, context);
-                                context
-                                    .read<RideRequestProvider>()
-                                    .sendPushNotificationToNearByDrivers();
-                              },
-                              backgroundColor: black,
-                              height: 6.h,
-                              width: 94.w,
-                              child: Builder(builder: (context) {
-                                if (bookRideButtonPressed == true) {
-                                  return CircularProgressIndicator(
-                                    color: white,
-                                  );
-                                } else {
-                                  return Text(
-                                    'Continue',
-                                    style: AppTextStyles.body16Bold
-                                        .copyWith(color: white),
-                                  );
-                                }
-                              }),
-                            ),
-                          ],
-                        );
-                      }
-                    });
-                  }
-                });
+                return bookARide(controller);
               } else {
                 return StreamBuilder(
                   stream: riderRideRequestRef.onValue,
@@ -319,21 +132,8 @@ class _BookARideScreenState extends State<BookARideScreen> {
                         return CancelRideRequest(
                           controller: controller,
                         );
-                      }
-                      if (rideData.rideStatus ==
-                          RideRequestServices.getRideStatus(0)) {
-                        return RideData(
-                          rideData: rideData,
-                          controller: controller,
-                        );
-                      } else if (rideData.rideStatus ==
-                          RideRequestServices.getRideStatus(1)) {
-                        return RideData(
-                          rideData: rideData,
-                          controller: controller,
-                        );
                       } else {
-                        RideData(
+                        return RideData(
                           rideData: rideData,
                           controller: controller,
                         );
@@ -403,6 +203,183 @@ class _BookARideScreenState extends State<BookARideScreen> {
         ),
       ),
     );
+  }
+
+  Builder bookARide(ScrollController controller) {
+    return Builder(builder: (context) {
+      if (bookRideButtonPressed == true) {
+        return CancelRideRequest(
+          controller: controller,
+        );
+      } else {
+        return Consumer<RideRequestProvider>(
+            builder: (context, rideRequestProvider, child) {
+          if ((rideRequestProvider.sanchalanGoFare == 0) &&
+              (rideRequestProvider.sanchalanGoSedanFare == 0) &&
+              (rideRequestProvider.sanchalanPremierFare == 0) &&
+              (rideRequestProvider.sanchalanPremierFare == 0)) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: black,
+              ),
+            );
+          } else {
+            return ListView(
+              controller: controller,
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 2.h),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 1.h,
+                      width: 20.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.sp),
+                        color: greyShade3,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                ListView.builder(
+                  itemCount: rideList.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedCarType = index;
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 0.5.h),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 1.h,
+                          horizontal: 3.w,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.sp),
+                          border: Border.all(
+                            color:
+                                index == selectedCarType ? black : transparent,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 8.h,
+                              width: 8.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.sp),
+                                border: Border.all(color: black38),
+                                color: white,
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                    rideList[index][0],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3.w,
+                            ),
+                            Expanded(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    getCarType(index),
+                                    style: AppTextStyles.body14Bold,
+                                  ),
+                                  SizedBox(
+                                    width: 2.w,
+                                  ),
+                                  Icon(
+                                    Icons.person,
+                                    color: black,
+                                  ),
+                                  Text(rideList[index][2]),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  '₹ ${getFare(index).toString()}',
+                                  style: AppTextStyles.body14Bold,
+                                ),
+                                Text(
+                                  (getFare(index) * 1.15).round().toString(),
+                                  style: AppTextStyles.small12.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: grey,
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: 1.h,
+                ),
+                ElevatedButtonCommon(
+                  onPressed: () {
+                    context
+                        .read<RideRequestProvider>()
+                        .updatePlacedRideRequestStatus(true);
+                    setState(() {
+                      bookRideButtonPressed = true;
+                    });
+                    RideRequestModel model = RideRequestModel(
+                      rideCreatTime: DateTime.now(),
+                      riderProfile:
+                          context.read<ProfileDataProvider>().profileData!,
+                      pickupLocation:
+                          context.read<RideRequestProvider>().pickupLocation!,
+                      dropLocation:
+                          context.read<RideRequestProvider>().dropLocation!,
+                      fare: getFare(selectedCarType).toString(),
+                      carTrpe: getCarType(selectedCarType),
+                      rideStatus: RideRequestServices.getRideStatus(0),
+                      otp: math.Random().nextInt(9999).toString(),
+                    );
+                    RideRequestServices.createNewRideRequest(model, context);
+                    context
+                        .read<RideRequestProvider>()
+                        .sendPushNotificationToNearByDrivers();
+                  },
+                  backgroundColor: black,
+                  height: 6.h,
+                  width: 94.w,
+                  child: Builder(builder: (context) {
+                    if (bookRideButtonPressed == true) {
+                      return CircularProgressIndicator(
+                        color: white,
+                      );
+                    } else {
+                      return Text(
+                        'Continue',
+                        style: AppTextStyles.body16Bold.copyWith(color: white),
+                      );
+                    }
+                  }),
+                ),
+              ],
+            );
+          }
+        });
+      }
+    });
   }
 }
 
