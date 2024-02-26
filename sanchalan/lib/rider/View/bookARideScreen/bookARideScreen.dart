@@ -356,7 +356,7 @@ class _BookARideScreenState extends State<BookARideScreen> {
                       dropLocation:
                           context.read<RideRequestProvider>().dropLocation!,
                       fare: getFare(selectedCarType).toString(),
-                      carTrpe: getCarType(selectedCarType),
+                      carType: getCarType(selectedCarType),
                       rideStatus: RideRequestServices.getRideStatus(0),
                       otp: math.Random().nextInt(9999).toString(),
                     );
@@ -528,23 +528,23 @@ class RideData extends StatelessWidget {
               width: 3.w,
             ),
             Text(
-              rideData.carTrpe,
+              rideData.carType,
               style: AppTextStyles.body16Bold,
             ),
             Builder(builder: (context) {
-              if (rideData.carTrpe == 'Sanchalan Go') {
+              if (rideData.carType == 'Sanchalan Go') {
                 return Image(
                   image:
                       const AssetImage('assets/images/vehicle/SanchalanGo.png'),
                   height: 5.h,
                 );
-              } else if (rideData.carTrpe == 'Sanchalan Go Sedan') {
+              } else if (rideData.carType == 'Sanchalan Go Sedan') {
                 return Image(
                   image: const AssetImage(
                       'assets/images/vehicle/SanchalanGoSedan.png'),
                   height: 5.h,
                 );
-              } else if (rideData.carTrpe == 'Sanchalan Premier') {
+              } else if (rideData.carType == 'Sanchalan Premier') {
                 return Image(
                   image: const AssetImage(
                       'assets/images/vehicle/SanchalanPremier.png'),

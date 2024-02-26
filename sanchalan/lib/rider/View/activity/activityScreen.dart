@@ -18,6 +18,21 @@ class ActivityScreenRider extends StatefulWidget {
 }
 
 class _ActivityScreenRiderState extends State<ActivityScreenRider> {
+  getCarImage(String carType) {
+    switch (carType) {
+      case 'Sanchalan Go':
+        return 'assets/images/vehicle/SanchalanGo.png';
+      case 'Sanchalan Go Sedan':
+        return 'assets/images/vehicle/SanchalanGoSedan.png';
+      case 'Sanchalan Premier':
+        return 'assets/images/vehicle/SanchalanPremier.png';
+      case 'Sanchalan XL':
+        return 'assets/images/vehicle/SanchalanXL.png';
+      default:
+        return 'assets/images/vehicle/SanchalanXL.png';
+    }
+  }
+
   DatabaseReference tripHistoryRef = FirebaseDatabase.instance
       .ref()
       .child('RideHistoryRider/${auth.currentUser!.phoneNumber}');
@@ -42,6 +57,9 @@ class _ActivityScreenRiderState extends State<ActivityScreenRider> {
           }
           if (event.data != null) {
             return FirebaseAnimatedList(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 3.w,
+                ),
                 query: tripHistoryRef,
                 itemBuilder: (context, snapshot, animation, index) {
                   RideRequestModel currentRideData = RideRequestModel.fromMap(
@@ -74,10 +92,12 @@ class _ActivityScreenRiderState extends State<ActivityScreenRider> {
                             borderRadius: BorderRadius.circular(
                               8.sp,
                             ),
-                            color: greyShadeButton,
-                            image: const DecorationImage(
+                            color: white,
+                            image: DecorationImage(
                               image: AssetImage(
-                                'assets/images/vehicle/car.png',
+                                getCarImage(
+                                  currentRideData.carType,
+                                ),
                               ),
                             ),
                           ),
@@ -91,24 +111,33 @@ class _ActivityScreenRiderState extends State<ActivityScreenRider> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Text(
-                                '33, 2nd Cross Road',
+                                currentRideData.pickupLocation.name!,
                                 style: AppTextStyles.small12Bold,
                                 maxLines: 2,
                               ),
                               Text(
-                                DateFormat('dd MMM, kk:mm a').format(
-                                  DateTime.now(),
-                                ),
-                                style: AppTextStyles.small10.copyWith(
-                                  color: black87,
-                                ),
+                                currentRideData.dropLocation.name!,
+                                style: AppTextStyles.small12Bold,
+                                maxLines: 2,
                               ),
-                              Text(
-                                '150:00',
-                                style: AppTextStyles.small10.copyWith(
-                                  color: black87,
-                                ),
-                              )
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    DateFormat('dd MMM, kk:mm a').format(
+                                      currentRideData.rideEndTime!,
+                                    ),
+                                    style: AppTextStyles.small10.copyWith(
+                                      color: black87,
+                                    ),
+                                  ),
+                                  Text(
+                                    '₹ ${currentRideData.fare}',
+                                    style: AppTextStyles.small10Bold,
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         )

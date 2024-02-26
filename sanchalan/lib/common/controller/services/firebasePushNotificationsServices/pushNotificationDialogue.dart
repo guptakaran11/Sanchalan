@@ -34,20 +34,20 @@ class PushNotificationDialogue {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Builder(builder: (context) {
-                    if (rideRequestModel.carTrpe == 'Sanchalan Go') {
+                    if (rideRequestModel.carType == 'Sanchalan Go') {
                       return Image(
                         image: const AssetImage(
                             'assets/images/vehicle/SanchalanGo.png'),
                         height: 5.h,
                       );
-                    } else if (rideRequestModel.carTrpe ==
+                    } else if (rideRequestModel.carType ==
                         'Sanchalan Go Sedan') {
                       return Image(
                         image: const AssetImage(
                             'assets/images/vehicle/SanchalanGoSedan.png'),
                         height: 5.h,
                       );
-                    } else if (rideRequestModel.carTrpe ==
+                    } else if (rideRequestModel.carType ==
                         'Sanchalan Premier') {
                       return Image(
                         image: const AssetImage(

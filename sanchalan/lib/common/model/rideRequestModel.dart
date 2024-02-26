@@ -14,7 +14,7 @@ class RideRequestModel {
   PickupNDropLocationModel pickupLocation;
   PickupNDropLocationModel dropLocation;
   String fare;
-  String carTrpe;
+  String carType;
   String rideStatus;
   String otp;
   RideRequestModel({
@@ -27,7 +27,7 @@ class RideRequestModel {
     required this.pickupLocation,
     required this.dropLocation,
     required this.fare,
-    required this.carTrpe,
+    required this.carType,
     required this.rideStatus,
     required this.otp,
   });
@@ -43,7 +43,7 @@ class RideRequestModel {
       'pickupLocation': pickupLocation.toMap(),
       'dropLocation': dropLocation.toMap(),
       'fare': fare,
-      'carTrpe': carTrpe,
+      'carTrpe': carType,
       'rideStatus': rideStatus,
       'otp': otp,
     };
@@ -51,16 +51,27 @@ class RideRequestModel {
 
   factory RideRequestModel.fromMap(Map<String, dynamic> map) {
     return RideRequestModel(
-      rideCreatTime: DateTime.fromMillisecondsSinceEpoch(map['rideCreatTime'] as int),
-      rideEndTime: map['rideEndTime'] != null ? DateTime.fromMillisecondsSinceEpoch(map['rideEndTime'] as int) : null,
-      riderRating: map['riderRating'] != null ? map['riderRating'] as double : null,
-      driverRating: map['driverRating'] != null ? map['driverRating'] as double : null,
-      riderProfile: ProfileDataModel.fromMap(map['riderProfile'] as Map<String,dynamic>),
-      driverProfile: map['driverProfile'] != null ? ProfileDataModel.fromMap(map['driverProfile'] as Map<String,dynamic>) : null,
-      pickupLocation: PickupNDropLocationModel.fromMap(map['pickupLocation'] as Map<String,dynamic>),
-      dropLocation: PickupNDropLocationModel.fromMap(map['dropLocation'] as Map<String,dynamic>),
+      rideCreatTime:
+          DateTime.fromMillisecondsSinceEpoch(map['rideCreatTime'] as int),
+      rideEndTime: map['rideEndTime'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['rideEndTime'] as int)
+          : null,
+      riderRating:
+          map['riderRating'] != null ? map['riderRating'] as double : null,
+      driverRating:
+          map['driverRating'] != null ? map['driverRating'] as double : null,
+      riderProfile:
+          ProfileDataModel.fromMap(map['riderProfile'] as Map<String, dynamic>),
+      driverProfile: map['driverProfile'] != null
+          ? ProfileDataModel.fromMap(
+              map['driverProfile'] as Map<String, dynamic>)
+          : null,
+      pickupLocation: PickupNDropLocationModel.fromMap(
+          map['pickupLocation'] as Map<String, dynamic>),
+      dropLocation: PickupNDropLocationModel.fromMap(
+          map['dropLocation'] as Map<String, dynamic>),
       fare: map['fare'] as String,
-      carTrpe: map['carTrpe'] as String,
+      carType: map['carTrpe'] as String,
       rideStatus: map['rideStatus'] as String,
       otp: map['otp'] as String,
     );
