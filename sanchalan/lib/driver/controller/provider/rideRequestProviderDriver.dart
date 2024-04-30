@@ -15,7 +15,7 @@ class RideRequestProviderDriver extends ChangeNotifier {
     target: LatLng(37.4, -122),
     zoom: 14,
   );
-  Set<Marker> driverMarker = Set<Marker>();
+  Set<Marker> driverMarker = <Marker>{};
   Set<Polyline> polylineSet = {};
   Polyline? polyline;
   List<LatLng> polylineCoordinatesList = [];

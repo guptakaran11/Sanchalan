@@ -1,21 +1,35 @@
 // ignore_for_file: unused_import
+//* Packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sanchalan/firebase_options.dart';
+import 'package:sizer/sizer.dart';
+
+//* Providers
+// Common Providers
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
 import 'package:sanchalan/common/controller/provider/locationProvider.dart';
 import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
+// Riders Provider
+import 'package:sanchalan/rider/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
+import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
+// Driver Providers
+import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
+
+//* Screens
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
+
+//* Utilis
 import 'package:sanchalan/constant/utils/colors.dart';
-import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
+
+//* Services
 import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/controller/services/mapsProviderDriver.dart';
-import 'package:sanchalan/firebase_options.dart';
-import 'package:sanchalan/rider/controller/provider/bottomNavbarRiderProvider/bottomNavBarRiderProvider.dart';
-import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
-import 'package:sizer/sizer.dart';
+
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,7 +70,7 @@ class _SanchalanState extends State<Sanchalan> {
                 create: (_) => BottomNavBarDriverProvider()),
             ChangeNotifierProvider<MapsProviderDriver>(
                 create: (_) => MapsProviderDriver()),
-                ChangeNotifierProvider<RideRequestProviderDriver>(
+            ChangeNotifierProvider<RideRequestProviderDriver>(
                 create: (_) => RideRequestProviderDriver()),
           ],
           child: MaterialApp(
