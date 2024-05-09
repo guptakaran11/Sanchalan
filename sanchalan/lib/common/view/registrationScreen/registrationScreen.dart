@@ -1,17 +1,24 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously, file_names
-
+//* Dart packages
 import 'dart:io';
 
+//* Packages
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
+
+//* Services
 import 'package:sanchalan/common/controller/services/imageServices.dart';
 import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
 import 'package:sanchalan/common/controller/services/toastService.dart';
+
+//* Models
 import 'package:sanchalan/common/model/profileModelData.dart';
+
+//* Constants Utility
 import 'package:sanchalan/constant/commonWidgets/elevatedButtonCommon.dart';
 import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
-import 'package:sizer/sizer.dart';
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
