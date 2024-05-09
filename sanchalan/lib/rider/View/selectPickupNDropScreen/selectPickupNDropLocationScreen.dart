@@ -1,22 +1,33 @@
 // ignore_for_file: use_build_context_synchronously, file_names
-
+//* Dart Packages
 import 'dart:developer';
 
+//* Packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+//* Providers
 import 'package:sanchalan/common/controller/provider/locationProvider.dart';
+import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
+
+//* Services
 import 'package:sanchalan/common/controller/services/directionServices.dart';
 import 'package:sanchalan/common/controller/services/locationServices.dart';
+
+//* Models
 import 'package:sanchalan/common/model/pickupNDropLocationModel.dart';
 import 'package:sanchalan/common/model/searchedAddressModel.dart';
+
+//* Utility
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
+
+//* Screens
 import 'package:sanchalan/rider/View/bookARideScreen/bookARideScreen.dart';
-import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProvider.dart';
-import 'package:sizer/sizer.dart';
 
 class PickupAndDropLocationScreen extends StatefulWidget {
   const PickupAndDropLocationScreen({super.key});
@@ -49,7 +60,7 @@ class _PickupAndDropLocationScreenState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       getCurrentAddress();
-       context.read<RideRequestProvider>().createIcons(context);
+      context.read<RideRequestProvider>().createIcons(context);
       FocusScope.of(context).requestFocus(dropLocationFocus);
     });
   }

@@ -1,22 +1,29 @@
 // ignore_for_file: file_names
-
+//* Dart Packages
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+//* Packages
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+//* Services
 import 'package:sanchalan/common/controller/services/locationServices.dart';
-import 'package:sanchalan/common/model/profileModelData.dart';
-import 'package:sanchalan/constant/constants.dart';
-import 'package:sanchalan/constant/utils/colors.dart';
-import 'package:sanchalan/constant/utils/textstyle.dart';
 import 'package:sanchalan/driver/controller/services/geoFireServices.dart';
 import 'package:sanchalan/driver/controller/services/mapsProviderDriver.dart';
-import 'package:sizer/sizer.dart';
+
+//* Models
+import 'package:sanchalan/common/model/profileModelData.dart';
+
+//* Utility
+import 'package:sanchalan/constant/utils/colors.dart';
+import 'package:sanchalan/constant/utils/textstyle.dart';
+import 'package:sanchalan/constant/constants.dart';
 
 class HomeScreenDriver extends StatefulWidget {
   const HomeScreenDriver({super.key});

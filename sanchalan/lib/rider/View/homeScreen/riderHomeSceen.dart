@@ -1,10 +1,15 @@
 // ignore_for_file: file_names
+//* Packages
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:sizer/sizer.dart';
+
+//* Utility
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
+
+//* Screens
 import 'package:sanchalan/rider/View/selectPickupNDropScreen/selectPickupNDropLocationScreen.dart';
-import 'package:sizer/sizer.dart';
 
 class RiderHomeScreen extends StatefulWidget {
   const RiderHomeScreen({super.key});

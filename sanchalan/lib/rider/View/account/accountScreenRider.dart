@@ -1,12 +1,19 @@
 // ignore_for_file: file_names
+//* Packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+//* Providers
 import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
+
+// Services
 import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
+
+//* Utility
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
-import 'package:sizer/sizer.dart';
 
 class AccountScreenRider extends StatefulWidget {
   const AccountScreenRider({super.key});

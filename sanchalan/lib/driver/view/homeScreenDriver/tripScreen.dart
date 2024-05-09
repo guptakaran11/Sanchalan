@@ -1,20 +1,31 @@
 // ignore_for_file: file_names, use_build_context_synchronously
+//* Dart Packages
 import 'dart:async';
 import 'dart:convert';
+
+//* Packages
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
+
+//* Services
 import 'package:sanchalan/common/controller/services/directionServices.dart';
 import 'package:sanchalan/common/controller/services/locationServices.dart';
+import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServicesDriver.dart';
+
+//* Models
 import 'package:sanchalan/common/model/rideRequestModel.dart';
+
+//* Providers
+import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
+
+//* Utility
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
-import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
-import 'package:sanchalan/driver/controller/services/rideRequestServices/rideRequestServicesDriver.dart';
-import 'package:sizer/sizer.dart';
 
 class TripScreen extends StatefulWidget {
   const TripScreen({super.key, required this.rideID});
