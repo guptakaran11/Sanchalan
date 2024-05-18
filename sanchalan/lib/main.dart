@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import
+
 //* Packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +18,6 @@ import 'package:sanchalan/rider/controller/provider/tripProvider/rideRequestProv
 import 'package:sanchalan/driver/controller/provider/rideRequestProviderDriver.dart';
 
 //* Screens
-import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
-import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
 
 //* Utilis

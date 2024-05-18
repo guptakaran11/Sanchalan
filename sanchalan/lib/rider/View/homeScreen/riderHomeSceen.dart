@@ -120,7 +120,7 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
                     width: 5.w,
                   ),
                   Text(
-                    'where to ?',
+                    'where to go .....',
                     style: AppTextStyles.body14Bold.copyWith(fontSize: 6.w),
                   )
                 ],
@@ -179,7 +179,7 @@ class _RiderHomeScreenState extends State<RiderHomeScreen> {
             }),
           ),
 
-          // suggestions
+          // Suggestions
           SizedBox(height: 4.h),
           Column(
             children: [
@@ -294,66 +294,67 @@ class ExploreFeaturesHorizontalListView extends StatelessWidget {
         SizedBox(
           height: 20.h,
           child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(
-                    left: index == 0 ? 0 : 1.5.w,
-                    right: index == (list.length - 1) ? 0 : 1.5.w,
-                  ),
-                  height: 18.h,
-                  width: 65.w,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 14.h,
-                        width: 65.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            8.sp,
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(
+                  left: index == 0 ? 0 : 1.5.w,
+                  right: index == (list.length - 1) ? 0 : 1.5.w,
+                ),
+                height: 18.h,
+                width: 65.w,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 14.h,
+                      width: 65.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          8.sp,
+                        ),
+                        image: DecorationImage(
+                          image: AssetImage(
+                            list[index][0],
                           ),
-                          image: DecorationImage(
-                            image: AssetImage(
-                              list[index][0],
-                            ),
-                            fit: BoxFit.fill,
-                          ),
+                          fit: BoxFit.fill,
                         ),
                       ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          Text(
-                            list[index][1],
-                            style: AppTextStyles.small12Bold,
-                          ),
-                          SizedBox(
-                            width: 3.w,
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 2.h,
-                            color: black87,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 0.2.h,
-                      ),
-                      Text(
-                        list[index][2],
-                        style: AppTextStyles.small10.copyWith(
+                    ),
+                    const Spacer(),
+                    Row(
+                      children: [
+                        Text(
+                          list[index][1],
+                          style: AppTextStyles.small12Bold,
+                        ),
+                        SizedBox(
+                          width: 3.w,
+                        ),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          size: 2.h,
                           color: black87,
-                        ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 0.2.h,
+                    ),
+                    Text(
+                      list[index][2],
+                      style: AppTextStyles.small10.copyWith(
+                        color: black87,
                       ),
-                    ],
-                  ),
-                );
-              }),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ],
     );
