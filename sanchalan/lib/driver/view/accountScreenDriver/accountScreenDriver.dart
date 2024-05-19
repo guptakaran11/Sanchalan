@@ -2,6 +2,7 @@
 //* Packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,6 +15,9 @@ import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
 //* Utility
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
+
+//* Screens
+import '../../../rider/View/paymentScreen/payment_screen.dart';
 
 class AccountScreenDriver extends StatefulWidget {
   const AccountScreenDriver({super.key});
@@ -172,9 +176,20 @@ class _AccountScreenDriverState extends State<AccountScreenDriver> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                Text(
-                                  e[1],
-                                  style: AppTextStyles.small10,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        child: const PaymentScreen(),
+                                        type: PageTransitionType.leftToRight,
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    e[1],
+                                    style: AppTextStyles.small10,
+                                  ),
                                 ),
                               ],
                             ),

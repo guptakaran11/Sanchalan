@@ -2,6 +2,8 @@
 //* Packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,6 +17,9 @@ import 'package:sanchalan/common/controller/services/mobileAuthServices.dart';
 import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/constant/utils/textstyle.dart';
 
+//* Services
+import 'package:sanchalan/rider/View/paymentScreen/payment_screen.dart';
+
 class AccountScreenRider extends StatefulWidget {
   const AccountScreenRider({super.key});
 
@@ -26,7 +31,10 @@ class _AccountScreenRiderState extends State<AccountScreenRider> {
   List accountTopButton = [
     [CupertinoIcons.shield_fill, 'Help'],
     [CupertinoIcons.creditcard_fill, 'Payment'],
-    [CupertinoIcons.square_list_fill, 'Activity'],
+    [
+      CupertinoIcons.square_list_fill,
+      GestureDetector(child: const Text("Activity"))
+    ],
   ];
 
   List accountButtons = [
@@ -172,9 +180,20 @@ class _AccountScreenRiderState extends State<AccountScreenRider> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                Text(
-                                  e[1],
-                                  style: AppTextStyles.small10,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        child: const PaymentScreen(),
+                                        type: PageTransitionType.leftToRight,
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    e[1],
+                                    style: AppTextStyles.small10,
+                                  ),
                                 ),
                               ],
                             ),
