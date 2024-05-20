@@ -2,7 +2,6 @@
 //* Packages
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -31,10 +30,7 @@ class _AccountScreenRiderState extends State<AccountScreenRider> {
   List accountTopButton = [
     [CupertinoIcons.shield_fill, 'Help'],
     [CupertinoIcons.creditcard_fill, 'Payment'],
-    [
-      CupertinoIcons.square_list_fill,
-      GestureDetector(child: const Text("Activity"))
-    ],
+    [CupertinoIcons.square_list_fill, 'Activity'],
   ];
 
   List accountButtons = [
