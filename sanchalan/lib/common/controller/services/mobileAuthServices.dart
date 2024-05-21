@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, file_names, unused_local_variable
+// ignore_for_file: use_build_context_synchronously, file_names,
 
 import 'dart:developer';
 
@@ -6,17 +6,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+
+//* Provider
 import 'package:sanchalan/common/controller/provider/authProvider.dart';
 import 'package:sanchalan/common/controller/provider/profileDataProvider.dart';
 import 'package:sanchalan/common/controller/services/profileDataCRUDServices.dart';
+
+//* Models
 import 'package:sanchalan/common/model/profileModelData.dart';
+
+//* Screens
 import 'package:sanchalan/common/view/authScreens/loginScreen.dart';
 import 'package:sanchalan/common/view/authScreens/otpScreen.dart';
 import 'package:sanchalan/common/view/registrationScreen/registrationScreen.dart';
 import 'package:sanchalan/common/view/signInLogic/signInLogic.dart';
-import 'package:sanchalan/constant/constants.dart';
 import 'package:sanchalan/driver/view/bottomNavBarDriver/bottomNavBarDriver.dart';
 import 'package:sanchalan/rider/View/bottomNavBar/bottomNavBarRider.dart';
+
+//* Widgets
+import 'package:sanchalan/constant/constants.dart';
 
 class MobileAuthServices {
   static receiveOTP(
