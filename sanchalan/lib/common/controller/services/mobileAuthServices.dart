@@ -102,6 +102,7 @@ class MobileAuthServices {
         await ProfileDataCRUDServices.checkForRegisteredUser(context);
 
     if (userIsRegistered == true) {
+      // ignore: unused_local_variable
       ProfileDataModel profileData =
           await ProfileDataCRUDServices.getProfileDataFromRealTimeDatabase(
               auth.currentUser!.phoneNumber!);
