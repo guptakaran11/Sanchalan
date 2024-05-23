@@ -1,10 +1,10 @@
-
 //* Packages
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sanchalan/firebase_options.dart';
 import 'package:sizer/sizer.dart';
+import 'package:device_preview/device_preview.dart';
 
 //* Providers
 // Common Providers
@@ -27,14 +27,20 @@ import 'package:sanchalan/constant/utils/colors.dart';
 import 'package:sanchalan/driver/controller/services/bottomNavBarDriverProvider.dart';
 import 'package:sanchalan/driver/controller/services/mapsProviderDriver.dart';
 
-
-
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const Sanchalan());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      isToolbarVisible: true,
+      builder: (context) {
+        return const Sanchalan();
+      },
+    ),
+  );
 }
 
 class Sanchalan extends StatefulWidget {

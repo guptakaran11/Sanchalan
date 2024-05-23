@@ -80,169 +80,171 @@ class _AccountScreenRiderState extends State<AccountScreenRider> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: [
-            // Top Row
-            ListView(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(
-                horizontal: 3.w,
-                vertical: 1.h,
-              ),
-              children: [
-                // Profile data
-                Consumer<ProfileDataProvider>(
-                  builder: (context, profileProvider, child) {
-                    if (profileProvider.profileData == null) {
-                      return Row(
-                        children: [
-                          SizedBox(
-                            width: 70.w,
-                            child: Text(
-                              'User',
-                              style: AppTextStyles.heading26Bold,
-                            ),
-                          ),
-                          Container(
-                            height: 16.w,
-                            width: 16.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: black87,
-                              ),
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                    'assets/images/SanchalanLogo/sanchalanSign.jpg'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    } else {
-                      return Row(
-                        children: [
-                          SizedBox(
-                            width: 70.w,
-                            child: Text(
-                              profileProvider.profileData!.name!,
-                              style: AppTextStyles.heading26Bold,
-                            ),
-                          ),
-                          Container(
-                            height: 16.w,
-                            width: 16.w,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: black87,
-                              ),
-                              image: DecorationImage(
-                                image: NetworkImage(profileProvider
-                                    .profileData!.profilePicUrl!),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    }
-                  },
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Top Row
+              ListView(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 3.w,
+                  vertical: 1.h,
                 ),
-
-                SizedBox(
-                  height: 3.h,
-                ),
-                // Top row button
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: accountTopButton
-                      .map((e) => Container(
-                            height: 10.h,
-                            width: 28.w,
-                            decoration: BoxDecoration(
-                              color: greyShade3,
-                              borderRadius: BorderRadius.circular(8.sp),
+                children: [
+                  // Profile data
+                  Consumer<ProfileDataProvider>(
+                    builder: (context, profileProvider, child) {
+                      if (profileProvider.profileData == null) {
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: 70.w,
+                              child: Text(
+                                'User',
+                                style: AppTextStyles.heading26Bold,
+                              ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  e[0],
-                                  size: 4.h,
+                            Container(
+                              height: 16.w,
+                              width: 16.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
                                   color: black87,
                                 ),
-                                SizedBox(
-                                  height: 1.h,
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/SanchalanLogo/sanchalanSign.jpg'),
                                 ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        child: const PaymentScreen(),
-                                        type: PageTransitionType.leftToRight,
-                                      ),
-                                    );
-                                  },
-                                  child: Text(
-                                    e[1],
-                                    style: AppTextStyles.small10,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                          ))
-                      .toList(),
-                ),
-              ],
-            ),
-
-            Divider(
-              color: greyShade2,
-              thickness: 0.5.h,
-            ),
-            SizedBox(
-              height: 2.h,
-            ),
-            ListView.builder(
-              padding: EdgeInsets.symmetric(
-                horizontal: 3.w,
-              ),
-              itemCount: accountButtons.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    if (index == (accountButtons.length - 1)) {
-                      MobileAuthServices.signOut(context);
-                    }
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 2.h),
-                    child: Row(
-                      children: [
-                        Icon(
-                          accountButtons[index][0],
-                          color: black,
-                          size: 3.h,
-                        ),
-                        SizedBox(
-                          width: 7.w,
-                        ),
-                        Text(
-                          accountButtons[index][1],
-                          style: AppTextStyles.small12,
-                        ),
-                      ],
-                    ),
+                          ],
+                        );
+                      } else {
+                        return Row(
+                          children: [
+                            SizedBox(
+                              width: 70.w,
+                              child: Text(
+                                profileProvider.profileData!.name!,
+                                style: AppTextStyles.heading26Bold,
+                              ),
+                            ),
+                            Container(
+                              height: 16.w,
+                              width: 16.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: black87,
+                                ),
+                                image: DecorationImage(
+                                  image: NetworkImage(profileProvider
+                                      .profileData!.profilePicUrl!),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    },
                   ),
-                );
-              },
-            ),
-          ],
+
+                  SizedBox(
+                    height: 3.h,
+                  ),
+                  // Top row button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: accountTopButton
+                        .map((e) => Container(
+                              height: 10.h,
+                              width: 28.w,
+                              decoration: BoxDecoration(
+                                color: greyShade3,
+                                borderRadius: BorderRadius.circular(8.sp),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    e[0],
+                                    size: 4.h,
+                                    color: black87,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageTransition(
+                                          child: const PaymentScreen(),
+                                          type: PageTransitionType.leftToRight,
+                                        ),
+                                      );
+                                    },
+                                    child: Text(
+                                      e[1],
+                                      style: AppTextStyles.small10,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                ],
+              ),
+
+              Divider(
+                color: greyShade2,
+                thickness: 0.5.h,
+              ),
+              SizedBox(
+                height: 2.h,
+              ),
+              ListView.builder(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 3.w,
+                ),
+                itemCount: accountButtons.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () {
+                      if (index == (accountButtons.length - 1)) {
+                        MobileAuthServices.signOut(context);
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 2.h),
+                      child: Row(
+                        children: [
+                          Icon(
+                            accountButtons[index][0],
+                            color: black,
+                            size: 3.h,
+                          ),
+                          SizedBox(
+                            width: 7.w,
+                          ),
+                          Text(
+                            accountButtons[index][1],
+                            style: AppTextStyles.small12,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
