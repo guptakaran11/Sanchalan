@@ -34,38 +34,14 @@ class _AccountScreenRiderState extends State<AccountScreenRider> {
   ];
 
   List accountButtons = [
-    [
-      CupertinoIcons.gift_fill,
-      'Send a gift',
-    ],
-    [
-      CupertinoIcons.gear_alt_fill,
-      'Settings',
-    ],
-    [
-      CupertinoIcons.envelope_fill,
-      'Messages',
-    ],
-    [
-      CupertinoIcons.money_dollar_circle_fill,
-      'Earn by driving or delivering',
-    ],
-    [
-      CupertinoIcons.briefcase_fill,
-      'Business hub',
-    ],
-    [
-      CupertinoIcons.person_2_fill,
-      'Refer friends, unlock deals',
-    ],
-    [
-      CupertinoIcons.person_fill,
-      'Manage Account',
-    ],
-    [
-      CupertinoIcons.power,
-      'Logout',
-    ],
+    [CupertinoIcons.gift_fill, 'Send a gift'],
+    [CupertinoIcons.gear_alt_fill, 'Settings'],
+    [CupertinoIcons.envelope_fill, 'Messages'],
+    [CupertinoIcons.money_dollar_circle_fill, 'Earn by driving or delivering'],
+    [CupertinoIcons.briefcase_fill, 'Business hub'],
+    [CupertinoIcons.person_2_fill, 'Refer friends, unlock deals'],
+    [CupertinoIcons.person_fill, 'Manage Account'],
+    [CupertinoIcons.power, 'Logout'],
   ];
 
   @override
