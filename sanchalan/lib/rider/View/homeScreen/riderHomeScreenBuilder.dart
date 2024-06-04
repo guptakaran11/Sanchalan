@@ -1,9 +1,14 @@
 // ignore_for_file: file_names
 
+//* Packages
 import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+
+//* Widgets
 import 'package:sanchalan/constant/constants.dart';
+
+//* Screens
 import 'package:sanchalan/rider/View/bookARideScreen/bookARideScreen.dart';
 import 'package:sanchalan/rider/View/homeScreen/riderHomeSceen.dart';
 
