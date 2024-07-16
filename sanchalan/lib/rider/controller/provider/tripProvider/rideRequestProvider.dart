@@ -19,7 +19,7 @@ class RideRequestProvider extends ChangeNotifier {
     target: LatLng(37.4, -122),
     zoom: 14,
   );
-  Set<Marker> riderMarker = <Marker>{};
+  Set<Marker> riderMarker = Set<Marker>();
   Set<Polyline> polylineSet = {};
   Polyline? polyline;
   List<LatLng> polylineCoordinatesList = [];
