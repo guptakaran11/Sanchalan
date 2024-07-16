@@ -54,6 +54,7 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^4.2.8
   pin_code_fields: ^8.0.1
   provider: ^6.1.1
+  shimmer: ^3.0.0
   sizer: ^2.0.15
   sliding_up_panel: ^2.0.0+1
   uuid: ^4.3.3

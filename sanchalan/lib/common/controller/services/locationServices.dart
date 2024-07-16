@@ -38,7 +38,7 @@ class LocationServices {
     required LatLng position,
     required BuildContext context,
   }) async {
-    final api = Uri.parse(APIs.geoCodingAPI(position));
+    final api = Uri.parse(APIs.geoCoadingAPI(position));
     try {
       var response = await http
           .get(api, headers: {'Content-Type': 'application/json'}).timeout(
@@ -107,6 +107,43 @@ class LocationServices {
     }
   }
 
+//   static getLatLngFromPlaceID(SearchedAddressModel address,
+//       BuildContext context, String locationType) async {
+//     final api = Uri.parse(APIs.getLatLngFromPlaceIDAPI(address.placeId));
+
+//     try {
+//       var response = await http
+//           .get(api, headers: {'Content-Type': 'application/json'}).timeout(
+//               const Duration(seconds: 60), onTimeout: () {
+//         ToastService.sendScaffoldAlert(
+//           msg: 'Opps! Connection Timed Out',
+//           toastStatus: 'ERROR',
+//           context: context,
+//         );
+//         throw TimeoutException('Connection Timed Out');
+//       });
+//       if (response.statusCode == 200) {
+//         var decodedResponse = jsonDecode(response.body);
+//         var locationLatLng = decodedResponse['result']['geometry']['location'];
+//         PickupNDropLocationModel model = PickupNDropLocationModel(
+//           name: address.mainName,
+//           description: address.secondaryName,
+//           placeID: address.placeId,
+//           latitude: locationLatLng['lat'],
+//           longitude: locationLatLng['lng'],
+//         );
+//         if (locationType == 'DROP') {
+//           context.read<LocationProvider>().updateDropLocation(model);
+//         } else {
+//           context.read<LocationProvider>().updatePickupLocation(model);
+//         }
+//       }
+//     } catch (e) {
+//       throw Exception(e);
+//     }
+//   }
+// }
+
   static getLatLngFromPlaceID(SearchedAddressModel address,
       BuildContext context, String locationType) async {
     final api = Uri.parse(APIs.getLatLngFromPlaceIDAPI(address.placeId));
@@ -124,14 +161,15 @@ class LocationServices {
       });
       if (response.statusCode == 200) {
         var decodedResponse = jsonDecode(response.body);
+
         var locationLatLng = decodedResponse['result']['geometry']['location'];
         PickupNDropLocationModel model = PickupNDropLocationModel(
-          name: address.mainName,
-          description: address.secondaryName,
-          placeID: address.placeId,
-          latitude: locationLatLng['lat'],
-          longitude: locationLatLng['lng'],
-        );
+            name: address.mainName,
+            description: address.secondaryName,
+            placeID: address.placeId,
+            latitude: locationLatLng['lat'],
+            longitude: locationLatLng['lng']);
+
         if (locationType == 'DROP') {
           context.read<LocationProvider>().updateDropLocation(model);
         } else {

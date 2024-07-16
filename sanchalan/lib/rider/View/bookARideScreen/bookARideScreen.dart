@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +34,138 @@ class _BookARideScreenState extends State<BookARideScreen> {
   GoogleMapController? mapController;
   int selectedCarType = 0;
   bool bookRideButtonPressed = false;
+  int time = 0;
+
+  updateTime() async {
+    await Future.delayed(
+        const Duration(
+          seconds: 1,
+        ), () {
+      if (time < 240) {
+        setState(() {
+          time += 1;
+        });
+        log(time.toString());
+        updateTime();
+      }
+    });
+  }
+
+  returnLoadingWidget(int minTime, int maxTime) {
+    return Builder(builder: (context) {
+      if (time < minTime) {
+        return Container(
+          height: 0.5.h,
+          width: 17.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(2.sp),
+            color: blue50,
+          ),
+        );
+      } else if (time < maxTime && time > minTime) {
+        return Shimmer.fromColors(
+          baseColor: blue50,
+          highlightColor: blueAccent100,
+          child: Container(
+            height: 0.5.h,
+            width: 17.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(2.sp),
+              color: blue50,
+            ),
+          ),
+        );
+      } else {
+        return Container(
+          height: 0.5.h,
+          width: 17.w,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(2.sp),
+            color: blueAccent100,
+          ),
+        );
+      }
+    });
+  }
+
+  SizedBox searchingForRide() {
+    return SizedBox(
+      height: 35.h,
+      width: 100.w,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 5.h,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              returnLoadingWidget(
+                0,
+                60,
+              ),
+              returnLoadingWidget(
+                60,
+                120,
+              ),
+              returnLoadingWidget(
+                120,
+                180,
+              ),
+              returnLoadingWidget(
+                180,
+                240,
+              ),
+              returnLoadingWidget(
+                240,
+                10000,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          Text(
+            'Requesting Ride',
+            style: AppTextStyles.body16,
+          ),
+          SizedBox(
+            height: 5.h,
+          ),
+          InkWell(
+            onTap: () {
+              RideRequestServices.cancelRideRequest(context);
+            },
+            child: Container(
+              height: 15.h,
+              width: 15.w,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: white,
+                boxShadow: [
+                  BoxShadow(color: black38, blurRadius: 5),
+                ],
+              ),
+              child: Icon(
+                CupertinoIcons.xmark,
+                color: black,
+              ),
+            ),
+          ),
+          // SizedBox(
+          //   height: 1.h,
+          // ),
+          Text(
+            'Cancle Ride',
+            style: AppTextStyles.small12,
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -129,16 +263,19 @@ class _BookARideScreenState extends State<BookARideScreen> {
                           jsonDecode(jsonEncode(event.data!.snapshot.value))
                               as Map<String, dynamic>);
                       if (rideData.driverProfile == null) {
-                        return CancelRideRequest(
-                          controller: controller,
-                        );
+                        return searchingForRide();
+                        // CancelRideRequest(
+                        //   controller: controller,
+                        // );
                       } else {
-                        if (rideRequestProvider.updateMarkerBool == false) {
-                          rideRequestProvider.updateUpdateMarkerBool(true);
-                          rideRequestProvider.updateMarker();
-                        }
-                        if (rideRequestProvider.fetchNearByDrivers == true) {
-                          rideRequestProvider.updateFetchNearByDrivers(false);
+                        if (rideData.driverProfile != null) {
+                          if (rideRequestProvider.updateMarkerBool == false) {
+                            rideRequestProvider.updateUpdateMarkerBool(true);
+                            rideRequestProvider.updateMarker();
+                          }
+                          if (rideRequestProvider.fetchNearByDrivers == true) {
+                            rideRequestProvider.updateFetchNearByDrivers(false);
+                          }
                         }
                         return RideData(
                           rideData: rideData,
@@ -178,7 +315,7 @@ class _BookARideScreenState extends State<BookARideScreen> {
                     );
                     CameraPosition cameraPosition = CameraPosition(
                       target: pickupLocation,
-                      zoom: 14,
+                      zoom: 20,
                     );
                     mapController!.animateCamera(
                         CameraUpdate.newCameraPosition(cameraPosition));

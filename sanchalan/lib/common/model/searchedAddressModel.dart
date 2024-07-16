@@ -17,7 +17,7 @@ class SearchedAddressModel {
     return <String, dynamic>{
       'mainName': mainName,
       'secondaryName': secondaryName,
-      'placeId': placeId,
+      'placeID': placeId,
     };
   }
 
@@ -25,7 +25,7 @@ class SearchedAddressModel {
     return SearchedAddressModel(
       mainName: map['mainName'] as String,
       secondaryName: map['secondaryName'] as String,
-      placeId: map['placeId'] as String,
+      placeId: map['placeID'] as String,
     );
   }
 
